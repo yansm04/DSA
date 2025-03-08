@@ -11,9 +11,13 @@ package adt;
 public interface ListInterface <T>{
     
     public void addAtFront(T newData);
-    public T getData();
+    public void addAtBack(T newData);
+    public T getData(int position);
+    
     public void removeData();
     public T viewData();
+    public void viewAllForward();
+    public void viewAllBackward();
     public boolean update();
     public int getSize();
     public boolean isEmpty();

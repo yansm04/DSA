@@ -10,9 +10,15 @@ package adt;
  */
 public class LinkedList<T> implements ListInterface<T> {
 
-    private int noOfEntries = 0;
+    private int length;
     private Node headNode;
     private Node tailNode;
+
+    public LinkedList() {
+        this.headNode = null;
+        this.tailNode = null;
+        this.length = 0;
+    }
 
     @Override
     public void addAtFront(T newData) {
@@ -20,17 +26,35 @@ public class LinkedList<T> implements ListInterface<T> {
         if (isEmpty()) {
             headNode = newNode;
             tailNode = headNode;
+            
         } else {
+            
+            headNode.prev = newNode;
+            
             newNode.next = headNode;
-            headNode.prev = headNode;
             headNode = newNode;
-
+            
         }
-
+        length++;
+    }
+    @Override
+    public void addAtBack(T newData){
+        Node newNode = new Node(newData);
+        if(isEmpty()){
+            headNode = newNode;
+            tailNode = headNode;
+            
+        }else{
+            tailNode.next = newNode;
+            newNode.prev = tailNode;
+            tailNode = newNode;
+            
+        }
+        length++;
     }
 
     @Override
-    public T getData() {
+    public T getData(int position) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -45,24 +69,42 @@ public class LinkedList<T> implements ListInterface<T> {
     }
 
     @Override
+    public void viewAllForward() {
+        Node temp = headNode;
+        while (temp != null) {
+            System.out.print(temp.data + "-->");
+            temp = temp.next;
+        }
+    }
+    @Override
+    public void viewAllBackward(){
+        Node temp = tailNode;
+        while (temp != null) {
+            System.out.print(temp.data + "-->");
+            temp = temp.prev;
+        }
+    }
+
+    @Override
     public boolean update() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public int getSize() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return length;
     }
 
     @Override
     public boolean isEmpty() {
-        boolean result = noOfEntries == 0;
-        return result;
+        return length == 0; // head == null
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        headNode = null;
+        tailNode = null;
+        length = 0;
     }
 
     private class Node {
