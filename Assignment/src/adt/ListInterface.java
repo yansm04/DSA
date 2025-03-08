@@ -12,12 +12,14 @@ public interface ListInterface <T>{
     
     public void addAtFront(T newData);
     public void addAtBack(T newData);
-    public T getData(int position);
+    public void addAtIndex(T newData, int index);
     
     public void removeData();
     public T viewData();
     public void viewAllForward();
     public void viewAllBackward();
+    public T viewDataAtIndex(int position);
+
     public boolean update();
     public int getSize();
     public boolean isEmpty();

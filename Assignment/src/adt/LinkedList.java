@@ -26,36 +26,82 @@ public class LinkedList<T> implements ListInterface<T> {
         if (isEmpty()) {
             headNode = newNode;
             tailNode = headNode;
-            
+
         } else {
-            
+
             headNode.prev = newNode;
-            
+
             newNode.next = headNode;
             headNode = newNode;
-            
-        }
-        length++;
-    }
-    @Override
-    public void addAtBack(T newData){
-        Node newNode = new Node(newData);
-        if(isEmpty()){
-            headNode = newNode;
-            tailNode = headNode;
-            
-        }else{
-            tailNode.next = newNode;
-            newNode.prev = tailNode;
-            tailNode = newNode;
-            
+
         }
         length++;
     }
 
     @Override
-    public T getData(int position) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addAtBack(T newData) {
+        Node newNode = new Node(newData);
+        if (isEmpty()) {
+            headNode = newNode;
+            tailNode = headNode;
+
+        } else {
+            tailNode.next = newNode;
+            newNode.prev = tailNode;
+            tailNode = newNode;
+
+        }
+        length++;
+    }
+
+    @Override
+    public void addAtIndex(T newData, int index) {
+        if (index < 0 || index > length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + length);
+        }
+
+        if (index == 0) {
+            addAtFront(newData);
+        } else if (index == length) {
+            addAtBack(newData);
+        } else {
+            Node currentNode = getNode(index);
+            Node newNode = new Node(newData);
+
+            //move using one direction
+//            for (int i = 0; i < index; i++) {
+//                currentNode = currentNode.next;
+//            }
+            newNode.prev = currentNode.prev;
+            newNode.next = currentNode;
+            currentNode.prev.next = newNode;
+            currentNode.prev = newNode;
+            length++;
+        }
+    }
+
+    // retrieve current node position (move using 2 directions)
+    private Node getNode(int index) {
+        if (index < 0 || index >= length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + length);
+        }
+
+        Node current;
+
+        if (index < length / 2) {
+            // move forward from head
+            current = headNode;
+            for (int i = 0; i < index; i++) {
+                current = current.next; // to right
+            }
+        } else {
+            //move backward from tail
+            current = tailNode;
+            for (int i = length - 1; i > index; i--) {
+                current = current.prev; // to left
+            }
+        }
+        return current;
     }
 
     @Override
@@ -76,13 +122,19 @@ public class LinkedList<T> implements ListInterface<T> {
             temp = temp.next;
         }
     }
+
     @Override
-    public void viewAllBackward(){
+    public void viewAllBackward() {
         Node temp = tailNode;
         while (temp != null) {
             System.out.print(temp.data + "-->");
             temp = temp.prev;
         }
+    }
+
+    @Override
+    public T viewDataAtIndex(int index) {
+        return getNode(index).data;
     }
 
     @Override
