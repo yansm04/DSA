@@ -103,11 +103,83 @@ public class LinkedList<T> implements ListInterface<T> {
         }
         return current;
     }
+    @Override
+    public T removeFront() {
+
+        if (isEmpty()) {
+            return null;
+        }
+        T temp = headNode.data;
+        if (headNode == tailNode) {
+
+            headNode = null;
+            tailNode = null;
+        } else {
+
+            headNode = headNode.next;
+            headNode.prev = null;
+
+        }
+        length--;
+        return temp;
+
+    }
 
     @Override
-    public void removeData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public T removeBack() {
+        if (isEmpty()) {
+            return null;
+        }
+        T temp = tailNode.data;
+        if (headNode == tailNode) {
+
+            headNode = null;
+            tailNode = null;
+        } else {
+
+            tailNode = tailNode.prev;
+            tailNode.next = null;
+
+        }
+        return temp;
+
+        
     }
+    @Override
+    public T removeByIndex(int index){
+        if(isEmpty()){
+            return null;
+        }
+        if(index == 0){
+            return removeFront();
+        }else if(index == length - 1){
+            return removeBack();
+        }
+        
+        
+        
+        Node temp = headNode;
+        for(int i = 0;i <index; i++){
+            temp  =temp.next;
+            
+        }
+        
+        if(temp == null){
+            return null;
+        }
+        
+        if(temp.prev!=null){
+            temp.prev.next = temp.next;
+        }
+        
+        if(temp.next!=null){
+            temp.next.prev = temp.prev;
+        }
+        
+       length --;
+        return temp.data;
+    }
+    
 
     @Override
     public T viewData() {

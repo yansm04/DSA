@@ -14,7 +14,9 @@ public interface ListInterface <T>{
     public void addAtBack(T newData);
     public void addAtIndex(T newData, int index);
     
-    public void removeData();
+     public T removeFront();
+    public T removeBack();
+    public T removeByIndex(int index);
     public T viewData();
     public void viewAllForward();
     public void viewAllBackward();
