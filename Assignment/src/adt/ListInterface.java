@@ -21,7 +21,7 @@ public interface ListInterface <T>{
     public void viewAllForward();
     public void viewAllBackward();
     public T viewDataAtIndex(int position);
-
+    public void updateNodeByIndex(int position);
     public boolean update();
     public int getSize();
     public boolean isEmpty();
