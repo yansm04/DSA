@@ -4,17 +4,19 @@
  */
 package adt;
 
+import java.util.NoSuchElementException;
+
 /**
  *
  * @author Acer
  */
-public class LinkedList<T> implements ListInterface<T> {
+public class DoublyLinkedList<T> implements ListInterface<T> {
 
     private int length;
     private Node headNode;
     private Node tailNode;
 
-    public LinkedList() {
+    public DoublyLinkedList() {
         this.headNode = null;
         this.tailNode = null;
         this.length = 0;
@@ -209,9 +211,74 @@ public class LinkedList<T> implements ListInterface<T> {
         return getNode(index).data;
     }
 
+   @Override
+    public T updateFront(T newData) {
+        T replaced = headNode.data;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        Node temp = new Node(newData);
+        temp.next = headNode.next;
+        temp.prev = headNode.prev;
+        headNode = temp;
+        return replaced;
+
+    }
+
     @Override
-    public boolean update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public T updateBack(T newData) {
+        T replaced = tailNode.data;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        Node temp = new Node(newData);
+        temp.next = tailNode.next;
+        temp.prev = tailNode.prev;
+        tailNode = temp;
+        return replaced;
+
+    }
+
+    @Override
+    public T updateNodeByIndex(int index, T newData) {
+//         if (index < 0) {
+//            System.out.println("Invalid index!");
+//            return false;
+//        }else{
+//             
+//         }
+//
+//        Node temp = headNode;
+//        int count = 0;
+//
+//        while (temp != null) {
+//            if (count == index) { 
+//                temp.data = newData;
+//                return true;
+//            }
+//            temp = temp.next;
+//            count++;
+//        }
+//
+//        System.out.println("Index out of range!");
+//        return false; // Index out of range
+
+        
+        if (index < 0 || index > length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + length);
+        }
+
+        Node node= getNode(index);
+        T replaced = node.data;
+        node.data = newData;
+        
+//        Node temp = new Node(newData);
+//        temp.next = node.next;
+//        temp.prev = node.prev;
+//        node = temp;
+        
+        return replaced;
+
     }
 
     @Override
