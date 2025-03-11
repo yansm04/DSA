@@ -238,6 +238,31 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         return replaced;
 
     }
+    
+    @Override
+    public T contains(T data) {
+        if (isEmpty()) {
+            throw new NoSuchElementException("The list is empty.");
+        }
+        Node left = headNode;
+        Node right = tailNode;
+        while (left != null && right != null && left.next != right && left != right) {
+            if (left.data.equals(data)) {
+                return left.data;
+            }
+            if (right.data.equals(data)) {
+                return right.data;
+            }
+            left = left.next;
+            right = right.prev;
+        }
+        if (left != null && left.data.equals(data)) {
+            return left.data;
+        }
+        throw new NoSuchElementException("Element not found in the list.");
+    }
+
+
 
     @Override
     public T updateNodeByIndex(int index, T newData) {
