@@ -14,10 +14,9 @@ public interface ListInterface <T>{
     public void addAtBack(T newData);
     public void addAtIndex(T newData, int index);
     
-     public T removeFront();
+    public T removeFront();
     public T removeBack();
     public T removeByIndex(int index);
-    public T viewData();
     public void viewAllForward();
     public void viewAllBackward();
     public T viewDataAtIndex(int position);
@@ -28,7 +27,7 @@ public interface ListInterface <T>{
     
     public int getSize();
     public boolean isEmpty();
-    
+    public int indexOf(T data);
     
     public void clear();
 }

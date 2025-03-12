@@ -5,6 +5,7 @@
 package adt;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  *
@@ -105,6 +106,7 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         }
         return current;
     }
+
     @Override
     public T removeFront() {
 
@@ -145,47 +147,39 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         }
         return temp;
 
-        
     }
-    @Override
-    public T removeByIndex(int index){
-        if(isEmpty()){
-            return null;
-        }
-        if(index == 0){
-            return removeFront();
-        }else if(index == length - 1){
-            return removeBack();
-        }
-        
-        
-        
-        Node temp = headNode;
-        for(int i = 0;i <index; i++){
-            temp  =temp.next;
-            
-        }
-        
-        if(temp == null){
-            return null;
-        }
-        
-        if(temp.prev!=null){
-            temp.prev.next = temp.next;
-        }
-        
-        if(temp.next!=null){
-            temp.next.prev = temp.prev;
-        }
-        
-       length --;
-        return temp.data;
-    }
-    
 
     @Override
-    public T viewData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public T removeByIndex(int index) {
+        if (isEmpty()) {
+            return null;
+        }
+        if (index == 0) {
+            return removeFront();
+        } else if (index == length - 1) {
+            return removeBack();
+        }
+
+        Node temp = headNode;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+
+        }
+
+        if (temp == null) {
+            return null;
+        }
+
+        if (temp.prev != null) {
+            temp.prev.next = temp.next;
+        }
+
+        if (temp.next != null) {
+            temp.next.prev = temp.prev;
+        }
+
+        length--;
+        return temp.data;
     }
 
     @Override
@@ -211,7 +205,7 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         return getNode(index).data;
     }
 
-   @Override
+    @Override
     public T updateFront(T newData) {
         T replaced = headNode.data;
         if (isEmpty()) {
@@ -287,23 +281,19 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
 //
 //        System.out.println("Index out of range!");
 //        return false; // Index out of range
-
-        
         if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + length);
         }
 
-        Node node= getNode(index);
+        Node node = getNode(index);
         T replaced = node.data;
         node.data = newData;
-        
+
 //        Node temp = new Node(newData);
 //        temp.next = node.next;
 //        temp.prev = node.prev;
 //        node = temp;
-        
         return replaced;
-
     }
 
     @Override
@@ -321,6 +311,34 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         headNode = null;
         tailNode = null;
         length = 0;
+    }
+
+    @Override
+    public int indexOf(T data) {
+        Node currentNode = headNode;
+        int index = 0;
+        while (currentNode != null) {
+            // object equal will prevent null pointer exception (return false instead)
+            if (Objects.equals(data, currentNode.data)) {
+                return index;
+            }
+            currentNode = currentNode.next;
+            index++;
+        }
+        return -1;
+    }
+
+    @Override
+    public String toString() {
+        String outputStr = "";
+        Node currentNode = headNode;
+        
+        while (currentNode != null) {
+            outputStr += currentNode.data + "\n";
+            currentNode = currentNode.next;
+        }
+        
+        return outputStr;
     }
 
     private class Node {
