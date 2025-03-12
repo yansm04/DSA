@@ -151,6 +151,9 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
 
     @Override
     public T removeByIndex(int index) {
+        if (index < 0 || index > length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + length);
+        }
         if (isEmpty()) {
             return null;
         }
@@ -234,7 +237,7 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
     }
     
     @Override
-    public T contains(T data) {
+    public boolean contains(T data) {
         if (isEmpty()) {
             throw new NoSuchElementException("The list is empty.");
         }
@@ -242,18 +245,18 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         Node right = tailNode;
         while (left != null && right != null && left.next != right && left != right) {
             if (left.data.equals(data)) {
-                return left.data;
+                return true;
             }
             if (right.data.equals(data)) {
-                return right.data;
+                return true;
             }
             left = left.next;
             right = right.prev;
         }
         if (left != null && left.data.equals(data)) {
-            return left.data;
+            return true;
         }
-        throw new NoSuchElementException("Element not found in the list.");
+        return false;
     }
 
 
@@ -327,6 +330,8 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         }
         return -1;
     }
+    
+    
 
     @Override
     public String toString() {
