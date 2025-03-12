@@ -22,6 +22,7 @@ public interface ListInterface <T>{
     public T viewDataAtIndex(int position);
     public T updateFront(T data);
     public T updateBack(T data);
+    public T contains(T data);
     public T updateNodeByIndex(int position, T data);
     
     public int getSize();

@@ -4,6 +4,7 @@
  */
 package client;
 import adt.DoublyLinkedList;
+
 import adt.ListInterface;
 
 
@@ -23,10 +24,12 @@ public class testAdt {
         numbersList.addAtBack(50);
         numbersList.addAtBack(60);
         numbersList.addAtBack(70);
+        
+        numbersList.contains(30);
+        System.out.println(numbersList.contains(30));
+        
         numbersList.viewAllForward();
-        System.out.println("");
         numbersList.viewAllBackward();
-        
-        
+                
     }
 }
