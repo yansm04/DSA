@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package client;
-import adt.LinkedList;
+import adt.DoublyLinkedList;
 import adt.ListInterface;
 
 
@@ -14,7 +14,7 @@ import adt.ListInterface;
 public class testAdt {
     
     public static void main(String[] args) {
-        ListInterface<Integer> numbersList = new LinkedList<>();
+        ListInterface<Integer> numbersList = new DoublyLinkedList<>();
         numbersList.clear();
         numbersList.addAtFront(40);
         numbersList.addAtFront(30);
