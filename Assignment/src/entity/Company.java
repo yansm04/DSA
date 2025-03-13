@@ -3,13 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
+import adt.DoublyLinkedList;
+import adt.ListInterface;
 
 public class Company {
 
     private String companyId;
     private String companyName;
     private String email;
-    // decalre job class
+    private ListInterface<Job> job = new DoublyLinkedList<>();
 
     public Company() {
         this("", "", "");
@@ -32,7 +34,10 @@ public class Company {
     public String getEmail() {
         return email;
     }
-
+    
+    public ListInterface<Job> getJob(){
+        return job;
+    }
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
@@ -44,9 +49,12 @@ public class Company {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void setJob(ListInterface<Job> job){
+        this.job = job;
+    }
 
     @Override
     public String toString() {
-        return "Company ID:" + companyId + "\nCompany Name: " + companyName + "\nEmail: " + email + "\n";
+        return "Company ID:" + companyId + "\nCompany Name: " + companyName + "\nEmail: " + email + "\nJob: " + job;
     }
 }
