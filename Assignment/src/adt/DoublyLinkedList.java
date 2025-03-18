@@ -145,13 +145,14 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
             tailNode.next = null;
 
         }
+        length--;
         return temp;
 
     }
 
     @Override
     public T removeByIndex(int index) {
-        if (index < 0 || index > length) {
+        if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + length);
         }
         if (isEmpty()) {
