@@ -211,32 +211,34 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
 
     @Override
     public T updateFront(T newData) {
-        T replaced = headNode.data;
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("List is empty");
         }
-        Node temp = new Node(newData);
-        temp.next = headNode.next;
-        temp.prev = headNode.prev;
-        headNode = temp;
-        return replaced;
+        T replaced = headNode.data;
+        headNode.data = newData;
 
+//        Node temp = new Node(newData);
+//        temp.next = headNode.next;
+//        temp.prev = headNode.prev;
+//        headNode = temp;
+        return replaced;
     }
 
     @Override
     public T updateBack(T newData) {
-        T replaced = tailNode.data;
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("List is empty");
         }
-        Node temp = new Node(newData);
-        temp.next = tailNode.next;
-        temp.prev = tailNode.prev;
-        tailNode = temp;
-        return replaced;
+        T replaced = tailNode.data;
+        tailNode.data = newData;
 
+//        Node temp = new Node(newData);
+//        temp.next = tailNode.next;
+//        temp.prev = tailNode.prev;
+//        tailNode = temp;
+        return replaced;
     }
-    
+
     @Override
     public boolean contains(T data) {
         if (isEmpty()) {
@@ -259,8 +261,6 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         }
         return false;
     }
-
-
 
     @Override
     public T updateNodeByIndex(int index, T newData) {
@@ -331,19 +331,17 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         }
         return -1;
     }
-    
-    
 
     @Override
     public String toString() {
         String outputStr = "";
         Node currentNode = headNode;
-        
+
         while (currentNode != null) {
             outputStr += currentNode.data + "\n";
             currentNode = currentNode.next;
         }
-        
+
         return outputStr;
     }
 
