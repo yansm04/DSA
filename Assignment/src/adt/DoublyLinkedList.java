@@ -373,13 +373,15 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
 
     @Override
     public void mergeSort() {
+        // if list is empty, no need to sort
         if (isEmpty()) {
             return;
         }
 
-        headNode = mergeSortHelper(headNode);
-        tailNode = headNode;
+        headNode = mergeSortHelper(headNode); // merge sort starting from head node
+        tailNode = headNode;  
 
+        // traverse to end of the list to find tail node
         if (tailNode != null) {
             while (tailNode.next != null) {
                 tailNode = tailNode.next;
@@ -387,46 +389,56 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
         }
     }
 
+    // perform recursive merge sort on dll
     private Node mergeSortHelper(Node headNode) {
+        // if list is empty or has one node only, already sorted
         if (headNode == null || headNode.next == null) {
             return headNode;
         }
 
-        Node mid = getMiddle(headNode);
-        Node nxtToMid = mid.next;
-        mid.next = null;
+        Node mid = getMiddle(headNode);  // find midpoint
+        Node nxtToMid = mid.next;  // split into half
+        mid.next = null;  // disconnec the 2 half
 
         if (nxtToMid != null) {
-            nxtToMid.prev = null;
+            nxtToMid.prev = null;  // disconnect the second half prev pointer
         }
 
+        // recursive sorting for 2 half
         Node left = mergeSortHelper(headNode);
         Node right = mergeSortHelper(nxtToMid);
 
+        // merge 2 sorted half 
         return merge(left, right);
     }
 
+    // find the middle node of the list
     private Node getMiddle(Node headNode) {
         if (headNode == null) {
             return null;
         }
 
-        Node slow = headNode;
-        Node fast = headNode.next;
+        Node slow = headNode;   // move one step at a time
+        Node fast = headNode.next;  // move 2 steps at a time
 
+        // both pointers will move until fast reaches the end
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        return slow;
+        return slow; // this is the mid point
     }
 
+    // merge 2 sorted lists
     private Node merge(Node left, Node right) {
+        // use dummy node to help merging
         Node dummy = new Node(null);
         Node current = dummy;
 
+        // merge 2 lists while both have remaining nodes
         while (left != null && right != null) {
+            // compare data of left and right nodes to choose which node to append next
             if (left.data.compareTo(right.data) <= 0) {
                 current.next = left;
                 left.prev = current;
@@ -440,6 +452,7 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
             current = current.next;
         }
 
+        // append if still have remaining nodes in either list
         if (left != null) {
             current.next = left;
             left.prev = current;
@@ -451,8 +464,10 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
             }
         }
 
+        // merged list starts at dummy next (skip dummy node)
         Node mergeHead = dummy.next;
 
+        // set the backward link of the head node to null
         if (mergeHead != null) {
             mergeHead.prev = null;
         }
