@@ -6,12 +6,13 @@ package adt;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Iterator;
 
 /**
  *
  * @author Acer
  */
-public class DoublyLinkedList<T> implements ListInterface<T> {
+public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<T>, Iterable<T> {
 
     private int length;
     private Node headNode;
@@ -343,6 +344,120 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         }
 
         return outputStr;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new DoublyLinkedListIterator();
+    }
+
+    private class DoublyLinkedListIterator implements Iterator<T> {
+
+        private Node current = headNode;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more elements in the list.");
+            }
+            T data = current.data;
+            current = current.next;
+            return data;
+        }
+    }
+
+    @Override
+    public void mergeSort() {
+        if (isEmpty()) {
+            return;
+        }
+
+        headNode = mergeSortHelper(headNode);
+        tailNode = headNode;
+
+        if (tailNode != null) {
+            while (tailNode.next != null) {
+                tailNode = tailNode.next;
+            }
+        }
+    }
+
+    private Node mergeSortHelper(Node headNode) {
+        if (headNode == null || headNode.next == null) {
+            return headNode;
+        }
+
+        Node mid = getMiddle(headNode);
+        Node nxtToMid = mid.next;
+        mid.next = null;
+
+        if (nxtToMid != null) {
+            nxtToMid.prev = null;
+        }
+
+        Node left = mergeSortHelper(headNode);
+        Node right = mergeSortHelper(nxtToMid);
+
+        return merge(left, right);
+    }
+
+    private Node getMiddle(Node headNode) {
+        if (headNode == null) {
+            return null;
+        }
+
+        Node slow = headNode;
+        Node fast = headNode.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    private Node merge(Node left, Node right) {
+        Node dummy = new Node(null);
+        Node current = dummy;
+
+        while (left != null && right != null) {
+            if (left.data.compareTo(right.data) <= 0) {
+                current.next = left;
+                left.prev = current;
+                left = left.next;
+            } else {
+                current.next = right;
+                right.prev = current;
+                right = right.next;
+            }
+
+            current = current.next;
+        }
+
+        if (left != null) {
+            current.next = left;
+            left.prev = current;
+        } else {
+            current.next = right;
+
+            if (right != null) {
+                right.prev = current;
+            }
+        }
+
+        Node mergeHead = dummy.next;
+
+        if (mergeHead != null) {
+            mergeHead.prev = null;
+        }
+
+        return mergeHead;
     }
 
     private class Node {
