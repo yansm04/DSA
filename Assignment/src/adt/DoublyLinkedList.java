@@ -6,12 +6,13 @@ package adt;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Iterator;
 
 /**
  *
  * @author Acer
  */
-public class DoublyLinkedList<T> implements ListInterface<T> {
+public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<T>, Iterable<T> {
 
     private int length;
     private Node headNode;
@@ -343,6 +344,135 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         }
 
         return outputStr;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new DoublyLinkedListIterator();
+    }
+
+    private class DoublyLinkedListIterator implements Iterator<T> {
+
+        private Node current = headNode;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more elements in the list.");
+            }
+            T data = current.data;
+            current = current.next;
+            return data;
+        }
+    }
+
+    @Override
+    public void mergeSort() {
+        // if list is empty, no need to sort
+        if (isEmpty()) {
+            return;
+        }
+
+        headNode = mergeSortHelper(headNode); // merge sort starting from head node
+        tailNode = headNode;  
+
+        // traverse to end of the list to find tail node
+        if (tailNode != null) {
+            while (tailNode.next != null) {
+                tailNode = tailNode.next;
+            }
+        }
+    }
+
+    // perform recursive merge sort on dll
+    private Node mergeSortHelper(Node headNode) {
+        // if list is empty or has one node only, already sorted
+        if (headNode == null || headNode.next == null) {
+            return headNode;
+        }
+
+        Node mid = getMiddle(headNode);  // find midpoint
+        Node nxtToMid = mid.next;  // split into half
+        mid.next = null;  // disconnec the 2 half
+
+        if (nxtToMid != null) {
+            nxtToMid.prev = null;  // disconnect the second half prev pointer
+        }
+
+        // recursive sorting for 2 half
+        Node left = mergeSortHelper(headNode);
+        Node right = mergeSortHelper(nxtToMid);
+
+        // merge 2 sorted half 
+        return merge(left, right);
+    }
+
+    // find the middle node of the list
+    private Node getMiddle(Node headNode) {
+        if (headNode == null) {
+            return null;
+        }
+
+        Node slow = headNode;   // move one step at a time
+        Node fast = headNode.next;  // move 2 steps at a time
+
+        // both pointers will move until fast reaches the end
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow; // this is the mid point
+    }
+
+    // merge 2 sorted lists
+    private Node merge(Node left, Node right) {
+        // use dummy node to help merging
+        Node dummy = new Node(null);
+        Node current = dummy;
+
+        // merge 2 lists while both have remaining nodes
+        while (left != null && right != null) {
+            // compare data of left and right nodes to choose which node to append next
+            if (left.data.compareTo(right.data) <= 0) {
+                current.next = left;
+                left.prev = current;
+                left = left.next;
+            } else {
+                current.next = right;
+                right.prev = current;
+                right = right.next;
+            }
+
+            current = current.next;
+        }
+
+        // append if still have remaining nodes in either list
+        if (left != null) {
+            current.next = left;
+            left.prev = current;
+        } else {
+            current.next = right;
+
+            if (right != null) {
+                right.prev = current;
+            }
+        }
+
+        // merged list starts at dummy next (skip dummy node)
+        Node mergeHead = dummy.next;
+
+        // set the backward link of the head node to null
+        if (mergeHead != null) {
+            mergeHead.prev = null;
+        }
+
+        return mergeHead;
     }
 
     private class Node {

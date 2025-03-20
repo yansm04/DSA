@@ -8,7 +8,7 @@ package adt;
  *
  * @author Acer
  */
-public interface ListInterface <T>{
+public interface ListInterface <T extends Comparable<T>>{
     
     public void addAtFront(T newData);
     public void addAtBack(T newData);
@@ -28,6 +28,6 @@ public interface ListInterface <T>{
     public int getSize();
     public boolean isEmpty();
     public int indexOf(T data);
-    
+    public void mergeSort();
     public void clear();
 }
