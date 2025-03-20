@@ -22,7 +22,7 @@ public class Job implements Comparable<Job>{
     private int salary;
     private ListInterface<Application> application= new DoublyLinkedList<>();
     private String location;
-    private String companyID;
+    private Company company;
     
     public Job(){}
 
@@ -38,7 +38,7 @@ public class Job implements Comparable<Job>{
         this.location = location;
         this.application=application;
     }
-     public Job(String companyID,String jobID, String title, String desc, String reqSkill, String reqEdLevel, String fos, String language, int salary, String location, ListInterface<Application> application) {
+     public Job(Company company,String jobID, String title, String desc, String reqSkill, String reqEdLevel, String fos, String language, int salary, String location, ListInterface<Application> application) {
         this.jobID = jobID;
         this.title = title;
         this.desc = desc;
@@ -49,16 +49,18 @@ public class Job implements Comparable<Job>{
         this.salary = salary;
         this.location = location;
         this.application=application;
-        this.companyID = companyID;
+        this.company = company;
     }
 
-    public String getCompanyID() {
-        return companyID;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyID(String companyID) {
-        this.companyID = companyID;
+    public void setCompany(Company company) {
+        this.company = company;
     }
+
+    
 
     
     

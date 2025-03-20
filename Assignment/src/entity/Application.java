@@ -16,35 +16,37 @@ public class Application implements Comparable<Application> {
     
     
     
-    private String jobID;
+    private Job job;
     private String status;
-    private String applicantID;
+    private Applicant applicant;
     private Interview interview;
     public Application(){}
 
-    public Application( String jobID, String status, Interview interview) {
+    public Application( Job job, String status, Interview interview) {
         this.applicationID = generateID();
         
-        this.jobID = jobID;
+        this.job = job;
         this.status = status;
         this.interview = interview;
     }
 
-    public String getJobID() {
-        return jobID;
+    public Job getJob() {
+        return job;
     }
 
-    public void setJobID(String jobID) {
-        this.jobID = jobID;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
-    public String getApplicantID() {
-        return applicantID;
+    public Applicant getApplicant() {
+        return applicant;
     }
 
-    public void setApplicantID(String applicantID) {
-        this.applicantID = applicantID;
+    public void setApplicant(Applicant applicant) {
+        this.applicant = applicant;
     }
+
+    
 
     
     
@@ -83,7 +85,7 @@ public class Application implements Comparable<Application> {
     public String toString() {
         return "ApplicationID: " + applicationID
                 
-                + "\nJob: " + jobID
+                + "\nJob: " + job
                 + "\nStatus: " + status
                 + "\nInterview: " + (interview != null ? interview.toString() : "Not Scheduled");
     }
