@@ -6,7 +6,7 @@ package entity;
 import adt.DoublyLinkedList;
 import adt.ListInterface;
 
-public class Company {
+public class Company implements Comparable<Company> {
 
     private String companyId;
     private String companyName;
@@ -21,6 +21,12 @@ public class Company {
         this.companyId = companyId;
         this.companyName = companyName;
         this.email = email;
+    }
+    public Company(String companyId, String companyName, String email, ListInterface<Job> job) {
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.email = email;
+        this.job = job;
     }
 
     public String getCompanyId() {
@@ -56,5 +62,10 @@ public class Company {
     @Override
     public String toString() {
         return "Company ID:" + companyId + "\nCompany Name: " + companyName + "\nEmail: " + email + "\nJob: " + job;
+    }
+
+    @Override
+    public int compareTo(Company o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

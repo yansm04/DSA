@@ -10,8 +10,9 @@ import adt.ListInterface;
  *
  * @author Acer
  */
-public class Job {
+public class Job implements Comparable<Job>{
     private String jobID;
+   
     private String title;
     private String desc;
     private String reqSkill;
@@ -21,6 +22,9 @@ public class Job {
     private int salary;
     private ListInterface<Application> application= new DoublyLinkedList<>();
     private String location;
+    private String companyID;
+    
+    public Job(){}
 
     public Job(String jobID, String title, String desc, String reqSkill, String reqEdLevel, String fos, String language, int salary, String location, ListInterface<Application> application) {
         this.jobID = jobID;
@@ -34,6 +38,32 @@ public class Job {
         this.location = location;
         this.application=application;
     }
+     public Job(String companyID,String jobID, String title, String desc, String reqSkill, String reqEdLevel, String fos, String language, int salary, String location, ListInterface<Application> application) {
+        this.jobID = jobID;
+        this.title = title;
+        this.desc = desc;
+        this.reqSkill = reqSkill;
+        this.reqEdLevel = reqEdLevel;
+        this.fos = fos;
+        this.language = language;
+        this.salary = salary;
+        this.location = location;
+        this.application=application;
+        this.companyID = companyID;
+    }
+
+    public String getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(String companyID) {
+        this.companyID = companyID;
+    }
+
+    
+    
+    
+    
 
     public String getJobID() {
         return jobID;
@@ -127,6 +157,11 @@ public class Job {
            ", Location: " + location +
            ", Applications: " + application.getSize();
 }
+
+    @Override
+    public int compareTo(Job o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

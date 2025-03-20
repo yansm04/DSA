@@ -11,7 +11,7 @@ import adt.ListInterface;
  *
  * @author Acer
  */
-public class Applicant {
+public class Applicant implements Comparable<Applicant> {
 
     private String userID;
     private String name;
@@ -22,6 +22,17 @@ public class Applicant {
     private ListInterface<String> education = new DoublyLinkedList<>();
     private ListInterface<Application> application = new DoublyLinkedList<>();
 
+    public Applicant(String userID, String name, String email, int age, ListInterface<String> skills, ListInterface<String> workingExperience, ListInterface<String> education, ListInterface<Application> application) {
+        this.userID = userID;
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.skills = skills;
+        this.workingExperience = workingExperience;
+        this.education = education;
+        this.application = application;
+    }
+
     public Applicant(String userID, String name, String email, int age, ListInterface<String> skills, ListInterface<String> workingExperience, ListInterface<String> education) {
         this.userID = userID;
         this.name = name;
@@ -30,6 +41,7 @@ public class Applicant {
         this.skills = skills;
         this.workingExperience = workingExperience;
         this.education = education;
+
     }
 
     public String getUserID() {
@@ -97,6 +109,11 @@ public class Applicant {
     }
 
     @Override
+    public int compareTo(Applicant other) {
+        return this.userID.compareTo(other.userID); // Compare by userID
+    }
+
+    @Override
     public String toString() {
         return "UserID: " + userID + "\n"
                 + "Name: " + name + "\n"
@@ -106,4 +123,5 @@ public class Applicant {
                 + "Working Experience: " + workingExperience + "\n"
                 + "Education: " + education + "\n";
     }
+
 }
