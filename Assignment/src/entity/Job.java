@@ -138,7 +138,7 @@ public class Job implements Comparable<Job>{
 
     public void setApplication(ListInterface<Application> application) {
         this.application = application;
-    }
+    }//test
 
     public String getLocation() {
         return location;
