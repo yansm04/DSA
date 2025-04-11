@@ -15,10 +15,11 @@ public class Job implements Comparable<Job>{
    
     private String title;
     private String desc;
-    private String reqSkill;
-    private String reqEdLevel;
-    private String fos;
-    private String language;
+    private ListInterface<String> reqSkill = new DoublyLinkedList<>();
+   
+    private ListInterface<String> reqEdLevel = new DoublyLinkedList<>();
+    private ListInterface<String> fos = new DoublyLinkedList<>();
+    private ListInterface <String> language = new DoublyLinkedList<>();
     private int salary;
     private ListInterface<Application> application= new DoublyLinkedList<>();
     private String location;
@@ -26,7 +27,7 @@ public class Job implements Comparable<Job>{
     
     public Job(){}
 
-    public Job(String jobID, String title, String desc, String reqSkill, String reqEdLevel, String fos, String language, int salary, String location, ListInterface<Application> application) {
+    public Job(String jobID, String title, String desc, ListInterface<String> reqSkill, ListInterface<String> reqEdLevel, ListInterface<String> fos, ListInterface<String> language, int salary, String location, ListInterface<Application> application) {
         this.jobID = jobID;
         this.title = title;
         this.desc = desc;
@@ -38,7 +39,7 @@ public class Job implements Comparable<Job>{
         this.location = location;
         this.application=application;
     }
-     public Job(Company company,String jobID, String title, String desc, String reqSkill, String reqEdLevel, String fos, String language, int salary, String location, ListInterface<Application> application) {
+     public Job(Company company,String jobID, String title, String desc, ListInterface<String> reqSkill, ListInterface<String> reqEdLevel, ListInterface<String> fos, ListInterface<String> language, int salary, String location, ListInterface<Application> application) {
         this.jobID = jobID;
         this.title = title;
         this.desc = desc;
@@ -91,35 +92,35 @@ public class Job implements Comparable<Job>{
         this.desc = desc;
     }
 
-    public String getReqSkill() {
+    public ListInterface<String> getReqSkill() {
         return reqSkill;
     }
 
-    public void setReqSkill(String reqSkill) {
+    public void setReqSkill(ListInterface<String> reqSkill) {
         this.reqSkill = reqSkill;
     }
 
-    public String getReqEdLevel() {
+    public ListInterface<String> getReqEdLevel() {
         return reqEdLevel;
     }
 
-    public void setReqEdLevel(String reqEdLevel) {
+    public void setReqEdLevel(ListInterface<String> reqEdLevel) {
         this.reqEdLevel = reqEdLevel;
     }
 
-    public String getFos() {
+    public ListInterface<String> getFos() {
         return fos;
     }
 
-    public void setFos(String fos) {
+    public void setFos(ListInterface<String> fos) {
         this.fos = fos;
     }
 
-    public String getLanguage() {
+    public ListInterface<String> getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(ListInterface<String> language) {
         this.language = language;
     }
 
