@@ -4,15 +4,15 @@
  */
 package entity;
 
-import adt.DoublyLinkedList;
-import adt.ListInterface;
+import adt.SortedDoublyLinkedList;
+import adt.SortedListInterface;
 
 public class Company implements Comparable<Company> {
 
     private String companyId;
     private String companyName;
     private String email;
-    private ListInterface<Job> job = new DoublyLinkedList<>();
+    private SortedListInterface<Job> job = new SortedDoublyLinkedList<>();
 
     public Company() {
         this("", "", "");
@@ -24,7 +24,7 @@ public class Company implements Comparable<Company> {
         this.email = email;
     }
 
-    public Company(String companyId, String companyName, String email, ListInterface<Job> job) {
+    public Company(String companyId, String companyName, String email, SortedListInterface<Job> job) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.email = email;
@@ -43,7 +43,7 @@ public class Company implements Comparable<Company> {
         return email;
     }
 
-    public ListInterface<Job> getJob() {
+    public SortedListInterface<Job> getJob() {
         return job;
     }
 
@@ -59,7 +59,7 @@ public class Company implements Comparable<Company> {
         this.email = email;
     }
 
-    public void setJob(ListInterface<Job> job) {
+    public void setJob(SortedListInterface<Job> job) {
         this.job = job;
     }
 

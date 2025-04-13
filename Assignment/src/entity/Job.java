@@ -4,8 +4,8 @@
  */
 package entity;
 
-import adt.DoublyLinkedList;
-import adt.ListInterface;
+import adt.SortedDoublyLinkedList;
+import adt.SortedListInterface;
 
 /**
  *
@@ -17,20 +17,20 @@ public class Job implements Comparable<Job> {
 
     private String title;
     private String desc;
-    private ListInterface<String> reqSkill = new DoublyLinkedList<>();
+    private SortedListInterface<String> reqSkill = new SortedDoublyLinkedList<>();
 
-    private ListInterface<String> reqEdLevel = new DoublyLinkedList<>();
-    private ListInterface<String> fos = new DoublyLinkedList<>();
-    private ListInterface<String> language = new DoublyLinkedList<>();
+    private SortedListInterface<String> reqEdLevel = new SortedDoublyLinkedList<>();
+    private SortedListInterface<String> fos = new SortedDoublyLinkedList<>();
+    private SortedListInterface<String> language = new SortedDoublyLinkedList<>();
     private int salary;
-    private ListInterface<Application> application = new DoublyLinkedList<>();
+    private SortedListInterface<Application> application = new SortedDoublyLinkedList<>();
     private String location;
     private Company company;
 
     public Job() {
     }
 
-    public Job(String jobID, String title, String desc, ListInterface<String> reqSkill, ListInterface<String> reqEdLevel, ListInterface<String> fos, ListInterface<String> language, int salary, String location, ListInterface<Application> application) {
+    public Job(String jobID, String title, String desc, SortedListInterface<String> reqSkill, SortedListInterface<String> reqEdLevel, SortedListInterface<String> fos, SortedListInterface<String> language, int salary, String location, SortedListInterface<Application> application) {
         this.jobID = jobID;
         this.title = title;
         this.desc = desc;
@@ -43,7 +43,7 @@ public class Job implements Comparable<Job> {
         this.application = application;
     }
 
-    public Job(Company company, String jobID, String title, String desc, ListInterface<String> reqSkill, ListInterface<String> reqEdLevel, ListInterface<String> fos, ListInterface<String> language, int salary, String location, ListInterface<Application> application) {
+    public Job(Company company, String jobID, String title, String desc, SortedListInterface<String> reqSkill, SortedListInterface<String> reqEdLevel, SortedListInterface<String> fos, SortedListInterface<String> language, int salary, String location, SortedListInterface<Application> application) {
         this.jobID = jobID;
         this.title = title;
         this.desc = desc;
@@ -89,35 +89,35 @@ public class Job implements Comparable<Job> {
         this.desc = desc;
     }
 
-    public ListInterface<String> getReqSkill() {
+    public SortedListInterface<String> getReqSkill() {
         return reqSkill;
     }
 
-    public void setReqSkill(ListInterface<String> reqSkill) {
+    public void setReqSkill(SortedListInterface<String> reqSkill) {
         this.reqSkill = reqSkill;
     }
 
-    public ListInterface<String> getReqEdLevel() {
+    public SortedListInterface<String> getReqEdLevel() {
         return reqEdLevel;
     }
 
-    public void setReqEdLevel(ListInterface<String> reqEdLevel) {
+    public void setReqEdLevel(SortedListInterface<String> reqEdLevel) {
         this.reqEdLevel = reqEdLevel;
     }
 
-    public ListInterface<String> getFos() {
+    public SortedListInterface<String> getFos() {
         return fos;
     }
 
-    public void setFos(ListInterface<String> fos) {
+    public void setFos(SortedListInterface<String> fos) {
         this.fos = fos;
     }
 
-    public ListInterface<String> getLanguage() {
+    public SortedListInterface<String> getLanguage() {
         return language;
     }
 
-    public void setLanguage(ListInterface<String> language) {
+    public void setLanguage(SortedListInterface<String> language) {
         this.language = language;
     }
 
@@ -129,11 +129,11 @@ public class Job implements Comparable<Job> {
         this.salary = salary;
     }
 
-    public ListInterface<Application> getApplication() {
+    public SortedListInterface<Application> getApplication() {
         return application;
     }
 
-    public void setApplication(ListInterface<Application> application) {
+    public void setApplication(SortedListInterface<Application> application) {
         this.application = application;
     }
 

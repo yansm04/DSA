@@ -8,10 +8,10 @@ package utility;
  *
  * @author Acer
  */
-import adt.DoublyLinkedList;
-import adt.ListInterface;
+import adt.SortedDoublyLinkedList;
+import adt.SortedListInterface;
 public class utility1 {
-    public static String listToString(ListInterface<String> list) {
+    public static String listToString(SortedListInterface<String> list) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < list.getSize(); i++) {
         sb.append(list.viewDataAtIndex(i));
