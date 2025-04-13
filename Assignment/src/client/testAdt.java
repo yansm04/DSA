@@ -3,10 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package client;
+import dao.Initializer;
+
 import adt.SortedDoublyLinkedList;
-
+import entity.*;
+import controller.MainController;
 import adt.SortedListInterface;
-
 
 /**
  *
@@ -15,25 +17,16 @@ import adt.SortedListInterface;
 public class testAdt {
 
     public static void main(String[] args) {
-        SortedListInterface<Integer> numbersList = new SortedDoublyLinkedList<>();
-        numbersList.clear();
-        numbersList.addAtFront(40);
-        numbersList.addAtFront(30);
-        numbersList.addAtFront(20);
-
-        numbersList.addAtBack(70);
-        numbersList.addAtBack(50);
-        numbersList.addAtBack(60);
-
-        numbersList.contains(30);
-        System.out.println(numbersList.contains(30));
-       
-        numbersList.viewAllForward();
-        //numbersList.viewAllBackward();
-        
-        System.out.println("\n");
-        numbersList.mergeSort();
-        numbersList.viewAllForward();
-
+        MainController.runAll();
+//        ListInterface <Integer> numbers = new DoublyLinkedList<>();
+//        numbers.addWithSort(3);
+//        numbers.addWithSort(1);
+//        numbers.addWithSort(10);
+//        numbers.addWithSort(8);
+//        numbers.addWithSort(8);
+//        
+//        numbers.viewAllForward();
     }
+    
+
 }

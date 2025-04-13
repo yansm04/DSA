@@ -21,11 +21,11 @@ import adt.SortedListInterface;
  */
 public class ApplicationController {
 
-    public static void mainApplication() {
+    public static void mainApplication(SortedListInterface<Company> companies,SortedListInterface<Applicant> applicants) {
 
         //Intitialize COmpany with jobs and applicants
-        SortedListInterface<Company> companies = initializeJobs();
-        SortedListInterface<Applicant> applicants = initializeApplicant();
+//        SortedListInterface<Company> companies = initializeJobs();
+//        SortedListInterface<Applicant> applicants = initializeApplicant();
 
         //Select Applicant here
         Applicant applicant = selectApplicant(applicants);
@@ -48,13 +48,13 @@ public class ApplicationController {
 
     }
 
-    public static SortedListInterface<Company> initializeJobs() {
-        return Initializer.initializeCompanyJob();
-    }
-
-    public static SortedListInterface<Applicant> initializeApplicant() {
-        return Initializer.initializeApplicant();
-    }
+//    public static SortedListInterface<Company> initializeJobs() {
+//        return Initializer.initializeCompanyJob();
+//    }
+//
+//    public static SortedListInterface<Applicant> initializeApplicant() {
+//        return Initializer.initializeApplicant();
+//    }
 
     public static int displayAllJobs(SortedListInterface<Company> companies) {
         ApplyUI.printFloor(174);
@@ -178,7 +178,7 @@ public class ApplicationController {
 //
 //        applications = applicant.getApplication();
 //        if (applications == null) {  // Fix: Ensure applications is initialized
-//            applications = new DoublyLinkedList<>();
+//            applications = new SortedDoublyLinkedList<>();
 //        }
 //
 //        applications.addWithSort(application);
