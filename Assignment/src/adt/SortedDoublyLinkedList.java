@@ -5,20 +5,19 @@
 package adt;
 
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Iterator;
 
 /**
  *
  * @author Acer
  */
-public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<T>, Iterable<T> {
+public class SortedDoublyLinkedList<T extends Comparable<T>> implements SortedListInterface<T>, Iterable<T> {
 
     private int length;
     private Node headNode;
     private Node tailNode;
 
-    public DoublyLinkedList() {
+    public SortedDoublyLinkedList() {
         this.headNode = null;
         this.tailNode = null;
         this.length = 0;
@@ -282,16 +281,13 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
         Node left = headNode;
         Node right = tailNode;
         while (left != null && right != null && left.next != right && left != right) {
-            if (Objects.equals(data, left.data)) {
-                return true;
-            }
-            if (Objects.equals(data, right.data)) {
+            if (data.compareTo(left.data) == 0 || data.compareTo(right.data) == 0) {
                 return true;
             }
             left = left.next;
             right = right.prev;
         }
-        if (left != null && left.data.equals(data)) {
+        if (left != null && data.compareTo(left.data) == 0) {
             return true;
         }
         return false;
@@ -357,8 +353,7 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
         Node currentNode = headNode;
         int index = 0;
         while (currentNode != null) {
-            // object equal will prevent null pointer exception (return false instead)
-            if (Objects.equals(data, currentNode.data)) {
+            if (data.compareTo(currentNode.data) == 0) {
                 return index;
             }
             currentNode = currentNode.next;

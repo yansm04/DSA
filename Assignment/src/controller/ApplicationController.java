@@ -4,8 +4,7 @@
  */
 package controller;
 
-import adt.DoublyLinkedList;
-import adt.ListInterface;
+import adt.SortedDoublyLinkedList;
 import boundary.ApplyUI;
 import entity.Company;
 import entity.Applicant;
@@ -14,6 +13,7 @@ import entity.Job;
 import utility.utility1;
 
 import dao.Initializer;
+import adt.SortedListInterface;
 
 /**
  *
@@ -24,8 +24,8 @@ public class ApplicationController {
     public static void mainApplication() {
 
         //Intitialize COmpany with jobs and applicants
-        ListInterface<Company> companies = initializeJobs();
-        ListInterface<Applicant> applicants = initializeApplicant();
+        SortedListInterface<Company> companies = initializeJobs();
+        SortedListInterface<Applicant> applicants = initializeApplicant();
 
         //Select Applicant here
         Applicant applicant = selectApplicant(applicants);
@@ -48,20 +48,20 @@ public class ApplicationController {
 
     }
 
-    public static ListInterface<Company> initializeJobs() {
+    public static SortedListInterface<Company> initializeJobs() {
         return Initializer.initializeCompanyJob();
     }
 
-    public static ListInterface<Applicant> initializeApplicant() {
+    public static SortedListInterface<Applicant> initializeApplicant() {
         return Initializer.initializeApplicant();
     }
 
-    public static int displayAllJobs(ListInterface<Company> companies) {
+    public static int displayAllJobs(SortedListInterface<Company> companies) {
         ApplyUI.printFloor(174);
         ApplyUI.header();
         ApplyUI.printFloor(174);
 
-        ListInterface<Job> jobs = new DoublyLinkedList<>();
+        SortedListInterface<Job> jobs = new SortedDoublyLinkedList<>();
 
         Company tempComp = new Company();
         Job tempJob = new Job();
@@ -86,8 +86,8 @@ public class ApplicationController {
         return jobNo;
     }
 
-    public static Job applyJob(Applicant applicant, int selection, ListInterface<Company> companies, int jobNo) {
-        ListInterface<Job> jobs = new DoublyLinkedList<>();
+    public static Job applyJob(Applicant applicant, int selection, SortedListInterface<Company> companies, int jobNo) {
+        SortedListInterface<Job> jobs = new SortedDoublyLinkedList<>();
 
         Job selectedJob = null;
 
@@ -136,10 +136,10 @@ public class ApplicationController {
 
     public static Applicant addApplicationToApplicant(Applicant applicant, Job selectedJob) {
         if (applicant.getApplication() == null) {
-            applicant.setApplication(new DoublyLinkedList<>());
+            applicant.setApplication(new SortedDoublyLinkedList<>());
         }
-        ListInterface<Application> applicationsApplicant = applicant.getApplication();
-        ListInterface<Application> applicationsJob = selectedJob.getApplication();
+        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
+        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
 
         //setting up application
         Application application = new Application(selectedJob, applicant, "Not Approved", null);
@@ -155,10 +155,10 @@ public class ApplicationController {
 
     public static Job addApplicationToJob(Applicant applicant, Job selectedJob) {
         if (applicant.getApplication() == null) {
-            applicant.setApplication(new DoublyLinkedList<>());
+            applicant.setApplication(new SortedDoublyLinkedList<>());
         }
-        ListInterface<Application> applicationsApplicant = applicant.getApplication();
-        ListInterface<Application> applicationsJob = selectedJob.getApplication();
+        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
+        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
 
         //setting up application
         Application application = new Application(selectedJob, applicant, "Not Approved", null);
@@ -186,7 +186,7 @@ public class ApplicationController {
 //        System.out.println(application.getApplicationID());
 //
 //    }
-    public static Applicant selectApplicant(ListInterface<Applicant> applicants) {
+    public static Applicant selectApplicant(SortedListInterface<Applicant> applicants) {
         int selection;
         ApplyUI.showApplicantHeader();
 
@@ -207,7 +207,7 @@ public class ApplicationController {
         return null;
     }
 
-    public static void updateListsAfterApplication(Applicant applicant, Job selectedJob, ListInterface<Applicant> applicants, ListInterface<Company> companies) {
+    public static void updateListsAfterApplication(Applicant applicant, Job selectedJob, SortedListInterface<Applicant> applicants, SortedListInterface<Company> companies) {
         // Update applicant in the applicants list
         for (int i = 0; i < applicants.getSize(); i++) {
             if (applicants.viewDataAtIndex(i).getUserID().equals(applicant.getUserID())) {
@@ -219,7 +219,7 @@ public class ApplicationController {
         // Update job in its respective company
         for (int i = 0; i < companies.getSize(); i++) {
             Company comp = companies.viewDataAtIndex(i);
-            ListInterface<Job> jobs = comp.getJob();
+            SortedListInterface<Job> jobs = comp.getJob();
             for (int j = 0; j < jobs.getSize(); j++) {
                 Job job = jobs.viewDataAtIndex(j);
                 if (job.getJobID().equals(selectedJob.getJobID())) {
@@ -235,7 +235,7 @@ public class ApplicationController {
     public static void printApplicantApplications(Applicant applicant) {
         System.out.println("\n Applications under Applicant " + applicant.getName() + ":");
 
-        ListInterface<Application> appsApplicant = applicant.getApplication();
+        SortedListInterface<Application> appsApplicant = applicant.getApplication();
         if (appsApplicant == null || appsApplicant.getSize() == 0) {
             System.out.println(" - No applications found.");
             return;
@@ -248,7 +248,7 @@ public class ApplicationController {
                     + " | Status: " + app.getStatus());
         }
     }
-    public static void printAllApplicantApplications(ListInterface<Applicant> applicants) {
+    public static void printAllApplicantApplications(SortedListInterface<Applicant> applicants) {
     System.out.println("\n📄 Applications under All Applicants:");
 
     if (applicants == null || applicants.getSize() == 0) {
@@ -261,7 +261,7 @@ public class ApplicationController {
         Applicant applicant = applicants.viewDataAtIndex(i);
         System.out.println("\n📑 Applicant: " + applicant.getName());
 
-        ListInterface<Application> appsApplicant = applicant.getApplication();
+        SortedListInterface<Application> appsApplicant = applicant.getApplication();
         if (appsApplicant == null || appsApplicant.getSize() == 0) {
             System.out.println(" - No applications found.");
         } else {

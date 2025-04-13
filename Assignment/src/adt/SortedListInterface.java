@@ -8,7 +8,7 @@ package adt;
  *
  * @author Acer
  */
-public interface ListInterface <T extends Comparable<T>>{
+public interface SortedListInterface <T extends Comparable<T>>{
     
     public void addAtFront(T newData);
     public void addAtBack(T newData);
