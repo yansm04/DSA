@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
+
 import adt.DoublyLinkedList;
 import adt.ListInterface;
 
@@ -22,6 +23,7 @@ public class Company implements Comparable<Company> {
         this.companyName = companyName;
         this.email = email;
     }
+
     public Company(String companyId, String companyName, String email, ListInterface<Job> job) {
         this.companyId = companyId;
         this.companyName = companyName;
@@ -40,10 +42,11 @@ public class Company implements Comparable<Company> {
     public String getEmail() {
         return email;
     }
-    
-    public ListInterface<Job> getJob(){
+
+    public ListInterface<Job> getJob() {
         return job;
     }
+
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
@@ -55,7 +58,8 @@ public class Company implements Comparable<Company> {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setJob(ListInterface<Job> job){
+
+    public void setJob(ListInterface<Job> job) {
         this.job = job;
     }
 
@@ -66,6 +70,6 @@ public class Company implements Comparable<Company> {
 
     @Override
     public int compareTo(Company o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.companyId.compareTo(o.companyId);
     }
 }

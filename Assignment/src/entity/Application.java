@@ -9,23 +9,23 @@ package entity;
  * @author Acer
  */
 public class Application implements Comparable<Application> {
-    
-    
+
     private static int idCounter = 1000;
     private int applicationID;
-    
-    
-    
+
     private Job job;
     private String status;
     private Applicant applicant;
     private Interview interview;
-    public Application(){}
 
-    public Application( Job job, String status, Interview interview) {
+    public Application() {
+    }
+
+    public Application(Job job, Applicant applicant, String status, Interview interview) {
         this.applicationID = generateID();
-        
+
         this.job = job;
+        this.applicant = applicant;
         this.status = status;
         this.interview = interview;
     }
@@ -46,12 +46,7 @@ public class Application implements Comparable<Application> {
         this.applicant = applicant;
     }
 
-    
-
-    
-    
-    
-    public static int generateID(){
+    public static int generateID() {
         return idCounter++;
     }
 
@@ -62,8 +57,6 @@ public class Application implements Comparable<Application> {
     public void setApplicationID(int applicationID) {
         this.applicationID = applicationID;
     }
-
-   
 
     public String getStatus() {
         return status;
@@ -84,7 +77,6 @@ public class Application implements Comparable<Application> {
     @Override
     public String toString() {
         return "ApplicationID: " + applicationID
-                
                 + "\nJob: " + job
                 + "\nStatus: " + status
                 + "\nInterview: " + (interview != null ? interview.toString() : "Not Scheduled");
@@ -92,6 +84,6 @@ public class Application implements Comparable<Application> {
 
     @Override
     public int compareTo(Application o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return Integer.compare(this.applicationID, o.applicationID);
     }
 }

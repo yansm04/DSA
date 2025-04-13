@@ -59,6 +59,40 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
     }
 
     @Override
+    public void addWithSort(T newData) {
+        Node newNode = new Node(newData);
+
+        if (isEmpty()) {
+            headNode = tailNode = newNode;
+        } else if (newData.compareTo(headNode.data) <= 0) {
+            // Insert at the front
+            newNode.next = headNode;
+            headNode.prev = newNode;
+            headNode = newNode;
+        } else if (newData.compareTo(tailNode.data) >= 0) {
+            // Insert at the back
+            newNode.prev = tailNode;
+            tailNode.next = newNode;
+            tailNode = newNode;
+        } else {
+            // Compare with node inside
+            Node current = headNode;
+
+            while (current != null && newData.compareTo(current.data) > 0) {
+                current = current.next;
+            }
+
+            // Insert before current
+            newNode.prev = current.prev;
+            newNode.next = current;
+            current.prev.next = newNode;
+            current.prev = newNode;
+        }
+
+        length++;
+    }
+
+    @Override
     public void addAtIndex(T newData, int index) {
         if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + length);
@@ -379,7 +413,7 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
         }
 
         headNode = mergeSortHelper(headNode); // merge sort starting from head node
-        tailNode = headNode;  
+        tailNode = headNode;
 
         // traverse to end of the list to find tail node
         if (tailNode != null) {

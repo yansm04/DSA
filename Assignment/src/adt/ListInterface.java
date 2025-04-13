@@ -13,6 +13,7 @@ public interface ListInterface <T extends Comparable<T>>{
     public void addAtFront(T newData);
     public void addAtBack(T newData);
     public void addAtIndex(T newData, int index);
+    public void addWithSort(T newData);
     
     public T removeFront();
     public T removeBack();
