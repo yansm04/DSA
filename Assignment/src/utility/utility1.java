@@ -13,12 +13,11 @@ import adt.SortedListInterface;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.util.Scanner;
 
 public class utility1 {
 
     public static int totalWidth = 160;
-    
+
     public static String listToString(SortedListInterface<String> list) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.getSize(); i++) {
