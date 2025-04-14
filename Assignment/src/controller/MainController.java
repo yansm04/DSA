@@ -22,6 +22,7 @@ public class MainController {
         SortedListInterface<Applicant> applicants = initializeApplicant();
         userTypeMenu(companies);
         ApplicationController.mainApplication(companies,applicants);
+        
     }
 
     public static SortedListInterface<Company> initializeJobs() {
@@ -109,7 +110,10 @@ public class MainController {
                     case 1:
                         // manage interview here
                         break;
+                        
                     case 2:
+                        
+                    case 3:
                         return;
                     default:
                         MainMenuUI.printInvalidMenuChoice();
