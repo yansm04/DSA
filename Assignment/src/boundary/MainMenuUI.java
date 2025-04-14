@@ -51,7 +51,8 @@ public class MainMenuUI {
         System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         1. Manage Interview           |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         2. Exit                       |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         2. View Applications          |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         3. Exit                       |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println();
         System.out.printf("%67sEnter your choice (1-3): ", " ");

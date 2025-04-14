@@ -20,8 +20,25 @@ public class MainController {
     public static void runAll() {
         SortedListInterface<Company> companies = initializeJobs();
         SortedListInterface<Applicant> applicants = initializeApplicant();
-        userTypeMenu(companies);
-        ApplicationController.mainApplication(companies,applicants);
+//        while(true){
+//            
+//        }
+        int selection = userTypeMenu(companies);
+        
+        
+        if(selection == 1){
+            System.out.println("Nothing happened");
+            ApplicationController.mainApplication(companies, applicants);
+        }else if(selection== 2){
+            Company selectedCompany = selectCompany(companies);
+            companyMenu(selectedCompany);
+            
+        }
+        
+        
+        
+//        userTypeMenu(companies);
+//        ApplicationController.mainApplication(companies,applicants);
         
     }
 
@@ -33,7 +50,8 @@ public class MainController {
         return Initializer.initializeApplicant();
     }
 
-    public static void userTypeMenu(SortedListInterface<Company> companies) {
+    public static int userTypeMenu(SortedListInterface<Company> companies) {
+        Company company = new Company();
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -43,17 +61,20 @@ public class MainController {
                 switch (choice) {
                     case 1:
                         //selectStudent(); // ltr implement
-                        break;
+                        return 1;
+                        
                     case 2:
-                        selectCompany(companies);
-                        break;
+                        
+                        return 2;
+                       
                     case 3:
-                        return;
+                        return 3;
                     default:
                         MainMenuUI.printInvalidMenuChoice();
                         MainMenuUI.pressEnterToContinue();
                         break;
                 }
+                
             } catch (NumberFormatException e) {
                 MainMenuUI.printInvalidMenuChoice();
                 MainMenuUI.pressEnterToContinue();
@@ -71,7 +92,7 @@ public class MainController {
         return MainMenuUI.selectFooter();
     }
 
-    public static void selectCompany(SortedListInterface<Company> companies) {
+    public static Company selectCompany(SortedListInterface<Company> companies) {
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -79,14 +100,15 @@ public class MainController {
                 int choice = selectCompanyMenu(companies);
 
                 if (choice == 0) {
-                    return;
+                    return null;
                 } else if (choice == 999) {
                     // some crud company function here
 
                 } else if (choice >= 1 && choice <= companies.getSize()) {
                     Company selectedCompany = companies.viewDataAtIndex(choice - 1);
-                    companyMenu(selectedCompany);
-                    MainMenuUI.pressEnterToContinue();
+                    return selectedCompany;
+//                    companyMenu(selectedCompany);
+//                    MainMenuUI.pressEnterToContinue();
                 } else {
                     MainMenuUI.printInvalidMenuChoice();
                     MainMenuUI.pressEnterToContinue();
@@ -113,6 +135,7 @@ public class MainController {
                         
                     case 2:
                         
+                        //Company view Applications with matched results
                     case 3:
                         return;
                     default:
