@@ -21,30 +21,46 @@ import adt.SortedListInterface;
  */
 public class ApplicationController {
 
-    public static void mainApplication(SortedListInterface<Company> companies,SortedListInterface<Applicant> applicants) {
+    public static void mainApplication(SortedListInterface<Company> companies, SortedListInterface<Applicant> applicants) {
 
         //Intitialize COmpany with jobs and applicants
 //        SortedListInterface<Company> companies = initializeJobs();
 //        SortedListInterface<Applicant> applicants = initializeApplicant();
-
         //Select Applicant here
-        Applicant applicant = selectApplicant(applicants);
+        boolean continueApplying = true;
+        while (continueApplying) {
+            Applicant applicant = selectApplicant(applicants);
+            if (applicant == null) {
+                System.out.println("Invalid selection, returning to main menu.");
+                return; // Exit if no valid applicant was selected
+            }
+            int jobNo = displayAllJobs(companies);
+            int selection = ApplyUI.printMenu();
+            Job selectedJob = applyJob(applicant, selection, companies, jobNo);
+            if (selectedJob != null) {
+                System.out.println(selectedJob.getTitle());
+                selectedJob = applyConfirmation(applicant, selectedJob);
 
-        //current applicant who is using the system
-        //Display all jobs
-        int jobNo = displayAllJobs(companies);
-        int selection = ApplyUI.printMenu();
-        Job selectedJob;
+                if (selectedJob != null) {
+                    // Add application to both applicant and job
+                    applicant = addApplicationToApplicant(applicant, selectedJob);
+                    selectedJob = addApplicationToJob(applicant, selectedJob);
 
-        selectedJob = applyJob(applicant, selection, companies, jobNo);
-        selectedJob = applyConfirmation(applicant, selectedJob);
+                    // Update the lists after the application
+                    updateListsAfterApplication(applicant, selectedJob, applicants, companies);
 
-        applicant = addApplicationToApplicant(applicant, selectedJob);
-        selectedJob = addApplicationToJob(applicant, selectedJob);
-        updateListsAfterApplication(applicant, selectedJob, applicants, companies);
-
-        printApplicantApplications(applicant);
-        printAllApplicantApplications(applicants);
+                    // Print the applicant's applications and all applications
+                    printApplicantApplications(applicant);
+                    printAllApplicantApplications(applicants);
+                }
+            }
+            System.out.println("Do you want to apply for another job? (y/n)");
+            char continueChoice = ApplyUI.getInput();
+            if (continueChoice != 'y' && continueChoice != 'Y') {
+                continueApplying = false;
+            }
+        }
+        System.out.println("Thank you for your application");
 
     }
 
@@ -55,7 +71,6 @@ public class ApplicationController {
 //    public static SortedListInterface<Applicant> initializeApplicant() {
 //        return Initializer.initializeApplicant();
 //    }
-
     public static int displayAllJobs(SortedListInterface<Company> companies) {
         ApplyUI.printFloor(174);
         ApplyUI.header();
@@ -86,33 +101,26 @@ public class ApplicationController {
         return jobNo;
     }
 
-    public static Job applyJob(Applicant applicant, int selection, SortedListInterface<Company> companies, int jobNo) {
-        SortedListInterface<Job> jobs = new SortedDoublyLinkedList<>();
-
-        Job selectedJob = null;
-
-        char confirmation = 'n';
-        if (selection < 0 || selection >= jobNo) {
-            System.out.println("Invalid job selection! Please select valid selection");
-
+    public static Job applyJob(Applicant applicant, int selection, SortedListInterface<Company> companies, int totalJobs) {
+        if (selection <= 0 || selection > totalJobs) {
+            System.out.println("Invalid job selection! Please select a valid option.");
+            return null;
         }
-        int currentJobNo = 1;
+
+        int count = 1;
 
         for (int i = 0; i < companies.getSize(); i++) {
-            Company tempComp = companies.viewDataAtIndex(i);
-            jobs = tempComp.getJob();
+            SortedListInterface<Job> jobs = companies.viewDataAtIndex(i).getJob();
+
             for (int j = 0; j < jobs.getSize(); j++) {
-                if (currentJobNo == selection) {
-                    selectedJob = jobs.viewDataAtIndex(j);
-
-                    break;
-
+                if (count == selection) {
+                    return jobs.viewDataAtIndex(j);
                 }
-                currentJobNo++;
+                count++;
             }
         }
 
-        return selectedJob;
+        return null;
     }
 
     public static Job applyConfirmation(Applicant applicant, Job selectedJob) {
@@ -248,32 +256,33 @@ public class ApplicationController {
                     + " | Status: " + app.getStatus());
         }
     }
+
     public static void printAllApplicantApplications(SortedListInterface<Applicant> applicants) {
-    System.out.println("\n📄 Applications under All Applicants:");
+        System.out.println("\n📄 Applications under All Applicants:");
 
-    if (applicants == null || applicants.getSize() == 0) {
-        System.out.println(" - No applicants found.");
-        return;
-    }
+        if (applicants == null || applicants.getSize() == 0) {
+            System.out.println(" - No applicants found.");
+            return;
+        }
 
-    // Iterate through all applicants
-    for (int i = 0; i < applicants.getSize(); i++) {
-        Applicant applicant = applicants.viewDataAtIndex(i);
-        System.out.println("\n📑 Applicant: " + applicant.getName());
+        // Iterate through all applicants
+        for (int i = 0; i < applicants.getSize(); i++) {
+            Applicant applicant = applicants.viewDataAtIndex(i);
+            System.out.println("\n📑 Applicant: " + applicant.getName());
 
-        SortedListInterface<Application> appsApplicant = applicant.getApplication();
-        if (appsApplicant == null || appsApplicant.getSize() == 0) {
-            System.out.println(" - No applications found.");
-        } else {
-            // Iterate through each application of the applicant
-            for (int j = 0; j < appsApplicant.getSize(); j++) {
-                Application app = appsApplicant.viewDataAtIndex(j);
-                System.out.println(" - Job: " + app.getJob().getTitle() + 
-                                   " at " + app.getJob().getCompany().getCompanyName() +
-                                   " | Status: " + app.getStatus());
+            SortedListInterface<Application> appsApplicant = applicant.getApplication();
+            if (appsApplicant == null || appsApplicant.getSize() == 0) {
+                System.out.println(" - No applications found.");
+            } else {
+                // Iterate through each application of the applicant
+                for (int j = 0; j < appsApplicant.getSize(); j++) {
+                    Application app = appsApplicant.viewDataAtIndex(j);
+                    System.out.println(" - Job: " + app.getJob().getTitle()
+                            + " at " + app.getJob().getCompany().getCompanyName()
+                            + " | Status: " + app.getStatus());
+                }
             }
         }
     }
-}
 
 }
