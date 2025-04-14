@@ -60,6 +60,17 @@ public class MainMenuUI {
 
     }
 
+    public static int applicantMenuUI() {
+        System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         1. ???                        |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         2. Exit                       |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
+        System.out.println();
+        System.out.printf("%67sEnter your choice (1-3): ", " ");
+        return Integer.parseInt(sc.nextLine());
+    }
 
     public static void selectHeader() {
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));

@@ -15,31 +15,32 @@ import utility.utility1;
  *
  * @author Acer
  */
-public class MainController {
+public class MainController {  // applicant stuff in notepad
 
     public static void runAll() {
         SortedListInterface<Company> companies = initializeJobs();
         SortedListInterface<Applicant> applicants = initializeApplicant();
-//        while(true){
-//            
-//        }
-        int selection = userTypeMenu(companies);
-        
-        
-        if(selection == 1){
-            System.out.println("Nothing happened");
-            ApplicationController.mainApplication(companies, applicants);
-        }else if(selection== 2){
-            Company selectedCompany = selectCompany(companies);
-            companyMenu(selectedCompany);
-            
+
+        while (true) {
+            int selection = userTypeMenu(companies);  
+
+            if (selection == 1) {
+                ApplicationController.mainApplication(companies, applicants);
+            } else if (selection == 2) {
+                while (true) {
+                    Company selectedCompany = selectCompany(companies);  
+                    if (selectedCompany == null) {
+                        break; 
+                    }
+                    companyMenu(selectedCompany);  
+                }
+            } else {
+                return;  
+            }
         }
-        
-        
-        
+
 //        userTypeMenu(companies);
 //        ApplicationController.mainApplication(companies,applicants);
-        
     }
 
     public static SortedListInterface<Company> initializeJobs() {
@@ -62,11 +63,11 @@ public class MainController {
                     case 1:
                         //selectStudent(); // ltr implement
                         return 1;
-                        
+
                     case 2:
-                        
+
                         return 2;
-                       
+
                     case 3:
                         return 3;
                     default:
@@ -74,7 +75,7 @@ public class MainController {
                         MainMenuUI.pressEnterToContinue();
                         break;
                 }
-                
+
             } catch (NumberFormatException e) {
                 MainMenuUI.printInvalidMenuChoice();
                 MainMenuUI.pressEnterToContinue();
@@ -132,10 +133,10 @@ public class MainController {
                     case 1:
                         // manage interview here
                         break;
-                        
+
                     case 2:
-                        
-                        //Company view Applications with matched results
+
+                    //Company view Applications with matched results
                     case 3:
                         return;
                     default:
