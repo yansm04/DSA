@@ -200,7 +200,7 @@ public class MainController {
 
                 switch (choice) {
                     case 1:
-                        ApplicationController.mainApplication(companies, applicants);
+                        ApplicationController.mainApplication(applicant,companies, applicants);
                         break;
                     case 2:
                         return;

@@ -21,7 +21,7 @@ import adt.SortedListInterface;
  */
 public class ApplicationController {
 
-    public static void mainApplication(SortedListInterface<Company> companies, SortedListInterface<Applicant> applicants) {
+    public static void mainApplication(Applicant applicant, SortedListInterface<Company> companies, SortedListInterface<Applicant> applicants) {
 
         //Intitialize COmpany with jobs and applicants
 //        SortedListInterface<Company> companies = initializeJobs();
@@ -29,11 +29,7 @@ public class ApplicationController {
         //Select Applicant here
         boolean continueApplying = true;
         while (continueApplying) {
-            Applicant applicant = selectApplicant(applicants);
-            if (applicant == null) {
-                System.out.println("Invalid selection, returning to main menu.");
-                return; // Exit if no valid applicant was selected
-            }
+
             int jobNo = displayAllJobs(companies);
             int selection = ApplyUI.printMenu();
             Job selectedJob = applyJob(applicant, selection, companies, jobNo);
@@ -42,6 +38,10 @@ public class ApplicationController {
                 selectedJob = applyConfirmation(applicant, selectedJob);
 
                 if (selectedJob != null) {
+                    if (hasAlreadyApplied(applicant, selectedJob)) {
+                        System.out.println("You have already applied for this job. Application cancelled.");
+                        continue;
+                    }
                     // Add application to both applicant and job
                     applicant = addApplicationToApplicant(applicant, selectedJob);
                     selectedJob = addApplicationToJob(applicant, selectedJob);
@@ -283,6 +283,21 @@ public class ApplicationController {
                 }
             }
         }
+    }
+
+    public static boolean hasAlreadyApplied(Applicant applicant, Job job) {
+        SortedListInterface<Application> applications = applicant.getApplication();
+        if (applications == null) {
+            return false;
+        }
+
+        for (int i = 0; i < applications.getSize(); i++) {
+            Application app = applications.viewDataAtIndex(i);
+            if (app.getJob().getJobID().equals(job.getJobID())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
