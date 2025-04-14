@@ -43,8 +43,9 @@ public class ApplicationController {
                         continue;
                     }
                     // Add application to both applicant and job
-                    applicant = addApplicationToApplicant(applicant, selectedJob);
-                    selectedJob = addApplicationToJob(applicant, selectedJob);
+//                    applicant = addApplicationToApplicant(applicant, selectedJob);
+//                    selectedJob = addApplicationToJob(applicant, selectedJob);
+                    addApplication(applicant,selectedJob);
 
                     // Update the lists after the application
                     updateListsAfterApplication(applicant, selectedJob, applicants, companies);
@@ -52,6 +53,7 @@ public class ApplicationController {
                     // Print the applicant's applications and all applications
                     printApplicantApplications(applicant);
                     printAllApplicantApplications(applicants);
+                    printAllCompanyJobApplications(companies);
                 }
             }
             System.out.println("Do you want to apply for another job? (y/n)");
@@ -142,58 +144,58 @@ public class ApplicationController {
         }
     }
 
-    public static Applicant addApplicationToApplicant(Applicant applicant, Job selectedJob) {
-        if (applicant.getApplication() == null) {
-            applicant.setApplication(new SortedDoublyLinkedList<>());
-        }
-        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
-        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
-
-        //setting up application
-        Application application = new Application(selectedJob, applicant, "Not Approved", null);
-        application.setApplicant(applicant);
-
-        //setting up application in applicant
-        applicationsApplicant.addWithSort(application);
-        applicant.setApplication(applicationsApplicant);
-
-        return applicant;
-
-    }
-
-    public static Job addApplicationToJob(Applicant applicant, Job selectedJob) {
-        if (applicant.getApplication() == null) {
-            applicant.setApplication(new SortedDoublyLinkedList<>());
-        }
-        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
-        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
-
-        //setting up application
-        Application application = new Application(selectedJob, applicant, "Not Approved", null);
-        application.setApplicant(applicant);
-
-        //setting up application in applicant
-        applicationsJob.addWithSort(application);
-        selectedJob.setApplication(applicationsApplicant);
-
-        return selectedJob;
-    }
-
-//    public static void addApplication(Applicant applicant, Application application, ListInterface<Application> applications, Job selectedJob) {
-//        selectedJob.setApplication(applications);
-//        application = new Application(selectedJob.getJobID(), "Not Approved", null);
-//        application.setApplicantID(applicant.getUserID());
-//
-//        applications = applicant.getApplication();
-//        if (applications == null) {  // Fix: Ensure applications is initialized
-//            applications = new SortedDoublyLinkedList<>();
+//    public static Applicant addApplicationToApplicant(Applicant applicant, Job selectedJob) {
+//        if (applicant.getApplication() == null) {
+//            applicant.setApplication(new SortedDoublyLinkedList<>());
 //        }
+//        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
+//        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
 //
-//        applications.addWithSort(application);
-//        applicant.setApplication(applications);
-//        System.out.println(application.getApplicationID());
+//        //setting up application
+//        Application application = new Application(selectedJob, applicant, "Not Approved", null);
+//        application.setApplicant(applicant);
+//
+//        //setting up application in applicant
+//        applicationsApplicant.addWithSort(application);
+//        applicant.setApplication(applicationsApplicant);
+//
+//        return applicant;
 //
 //    }
+
+//    public static Job addApplicationToJob(Applicant applicant, Job selectedJob) {
+//        if (applicant.getApplication() == null) {
+//            applicant.setApplication(new SortedDoublyLinkedList<>());
+//        }
+//        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
+//        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
+//
+//        //setting up application
+//        Application application = new Application(selectedJob, applicant, "Not Approved", null);
+//        application.setApplicant(applicant);
+//
+//        //setting up application in applicant
+//        applicationsJob.addWithSort(application);
+//        selectedJob.setApplication(applicationsApplicant);
+//
+//        return selectedJob;
+//    }
+    public static void addApplication(Applicant applicant, Job selectedJob) {
+    if (applicant.getApplication() == null) {
+        applicant.setApplication(new SortedDoublyLinkedList<>());
+    }
+    if (selectedJob.getApplication() == null) {
+        selectedJob.setApplication(new SortedDoublyLinkedList<>());
+    }
+
+    Application application = new Application(selectedJob, applicant, "Not Approved", null);
+    application.setApplicant(applicant);
+
+    applicant.getApplication().addWithSort(application);
+    selectedJob.getApplication().addWithSort(application);
+}
+
+
     public static Applicant selectApplicant(SortedListInterface<Applicant> applicants) {
         int selection;
         ApplyUI.showApplicantHeader();
@@ -256,7 +258,11 @@ public class ApplicationController {
                     + " | Status: " + app.getStatus());
         }
     }
-
+    
+    
+    
+    
+    //For debug purpose
     public static void printAllApplicantApplications(SortedListInterface<Applicant> applicants) {
         System.out.println("\n📄 Applications under All Applicants:");
 
@@ -299,5 +305,45 @@ public class ApplicationController {
         }
         return false;
     }
+    
+    
+    
+    
+    //For Debug purpose
+    public static void printAllCompanyJobApplications(SortedListInterface<Company> companies) {
+    System.out.println("\n🏢📋 Applications under All Companies' Jobs:");
+
+    if (companies == null || companies.getSize() == 0) {
+        System.out.println(" - No companies found.");
+        return;
+    }
+
+    for (int i = 0; i < companies.getSize(); i++) {
+        Company company = companies.viewDataAtIndex(i);
+        System.out.println("\n🏢 Company: " + company.getCompanyName());
+
+        SortedListInterface<Job> jobs = company.getJob();
+        if (jobs == null || jobs.getSize() == 0) {
+            System.out.println(" - No jobs found.");
+            continue;
+        }
+
+        for (int j = 0; j < jobs.getSize(); j++) {
+            Job job = jobs.viewDataAtIndex(j);
+            System.out.println("  💼 Job: " + job.getTitle());
+
+            SortedListInterface<Application> apps = job.getApplication();
+            if (apps == null || apps.getSize() == 0) {
+                System.out.println("   - No applications found.");
+            } else {
+                for (int k = 0; k < apps.getSize(); k++) {
+                    Application app = apps.viewDataAtIndex(k);
+                    System.out.println("   - Applicant: " + app.getApplicant().getName() + " | Status: " + app.getStatus());
+                }
+            }
+        }
+    }
+}
+
 
 }
