@@ -84,4 +84,9 @@ public class ApplyUI {
         int selection = scanner.nextInt();
         return selection;
     }
+    public static char getInput(){
+        Scanner scanner = new Scanner (System.in);
+        char confirm = scanner.next().charAt(0);
+        return confirm;
+    }
 }
