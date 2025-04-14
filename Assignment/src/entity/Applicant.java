@@ -18,29 +18,32 @@ public class Applicant implements Comparable<Applicant> {
     private String email;
     private int age;
     private SortedListInterface<String> skills = new SortedDoublyLinkedList<>();
-    private SortedListInterface<String> workingExperience = new SortedDoublyLinkedList<>();
+    private SortedListInterface<String> fos = new SortedDoublyLinkedList<>();
     private SortedListInterface<String> education = new SortedDoublyLinkedList<>();
     private SortedListInterface<Application> application = new SortedDoublyLinkedList<>();
+    private SortedListInterface<String> language = new SortedDoublyLinkedList<>();
 
-    public Applicant(String userID, String name, String email, int age, SortedListInterface<String> skills, SortedListInterface<String> workingExperience, SortedListInterface<String> education, SortedListInterface<Application> application) {
+    public Applicant(String userID, String name, String email, int age, SortedListInterface<String> skills, SortedListInterface<String> fos, SortedListInterface<String> education, SortedListInterface<Application> application,SortedListInterface<String> language) {
         this.userID = userID;
         this.name = name;
         this.email = email;
         this.age = age;
         this.skills = skills;
-        this.workingExperience = workingExperience;
+        this.fos = fos;
         this.education = education;
         this.application = application;
+        this.language = language;
     }
 
-    public Applicant(String userID, String name, String email, int age, SortedListInterface<String> skills, SortedListInterface<String> workingExperience, SortedListInterface<String> education) {
+    public Applicant(String userID, String name, String email, int age, SortedListInterface<String> skills, SortedListInterface<String> fos, SortedListInterface<String> education,SortedListInterface<String> language) {
         this.userID = userID;
         this.name = name;
         this.email = email;
         this.age = age;
         this.skills = skills;
-        this.workingExperience = workingExperience;
+        this.fos = fos;
         this.education = education;
+        this.language = language;
 
     }
 
@@ -84,12 +87,12 @@ public class Applicant implements Comparable<Applicant> {
         this.skills = skills;
     }
 
-    public SortedListInterface<String> getWorkingExperience() {
-        return workingExperience;
+    public SortedListInterface<String> getfos() {
+        return fos;
     }
 
-    public void setWorkingExperience(SortedListInterface<String> workingExperience) {
-        this.workingExperience = workingExperience;
+    public void setfos(SortedListInterface<String> fos) {
+        this.fos = fos;
     }
 
     public SortedListInterface<String> getEducation() {
@@ -120,7 +123,7 @@ public class Applicant implements Comparable<Applicant> {
                 + "Email: " + email + "\n"
                 + "Age: " + age + "\n"
                 + "Skills: " + skills + "\n"
-                + "Working Experience: " + workingExperience + "\n"
+                + "Working Experience: " + fos + "\n"
                 + "Education: " + education + "\n";
     }
 
