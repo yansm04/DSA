@@ -64,7 +64,7 @@ public class MainMenuUI {
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         1. ???                        |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         1. Application                |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         2. Exit                       |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println();
