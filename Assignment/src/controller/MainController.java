@@ -39,7 +39,7 @@ public class MainController {
                     if (selectedCompany == null) {
                         break;
                     }
-                    companyMenu(selectedCompany);
+                    companyMenu(selectedCompany, applicants);
                 }
             } else {
                 return;
@@ -124,7 +124,7 @@ public class MainController {
 
     }
 
-    public static void companyMenu(Company company) {
+    public static void companyMenu(Company company, SortedListInterface<Applicant> applicants) {
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -134,6 +134,7 @@ public class MainController {
                 switch (choice) {
                     case 1:
                         // manage interview here
+                        InterviewController.cmpInterviewMenu(company, applicants);
                         break;
 
                     case 2:
@@ -200,7 +201,7 @@ public class MainController {
 
                 switch (choice) {
                     case 1:
-                        ApplicationController.mainApplication(applicant,companies, applicants);
+                        ApplicationController.mainApplication(applicant, companies, applicants);
                         break;
                     case 2:
                         return;
