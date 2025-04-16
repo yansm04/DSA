@@ -87,14 +87,7 @@ public class Applicant implements Comparable<Applicant> {
         this.skills = skills;
     }
 
-    public SortedListInterface<String> getfos() {
-        return fos;
-    }
-
-    public void setfos(SortedListInterface<String> fos) {
-        this.fos = fos;
-    }
-
+    
     public SortedListInterface<String> getEducation() {
         return education;
     }
@@ -110,6 +103,23 @@ public class Applicant implements Comparable<Applicant> {
     public void setApplication(SortedListInterface<Application> application) {
         this.application = application;
     }
+
+    public SortedListInterface<String> getFos() {
+        return fos;
+    }
+
+    public void setFos(SortedListInterface<String> fos) {
+        this.fos = fos;
+    }
+
+    public SortedListInterface<String> getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(SortedListInterface<String> language) {
+        this.language = language;
+    }
+    
 
     @Override
     public int compareTo(Applicant other) {

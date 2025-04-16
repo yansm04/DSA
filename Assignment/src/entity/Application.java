@@ -17,6 +17,7 @@ public class Application implements Comparable<Application> {
     private String status;
     private Applicant applicant;
     private Interview interview;
+    private double score;
 
     public Application() {
     }
@@ -73,6 +74,15 @@ public class Application implements Comparable<Application> {
     public void setInterview(Interview interview) {
         this.interview = interview;
     }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+    
 
     @Override
     public String toString() {
