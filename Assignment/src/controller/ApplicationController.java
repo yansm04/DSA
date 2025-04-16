@@ -34,7 +34,7 @@ public class ApplicationController {
             int selection = ApplyUI.printMenu();
             Job selectedJob = applyJob(applicant, selection, companies, jobNo);
             if (selectedJob != null) {
-                System.out.println(selectedJob.getTitle());
+                
                 selectedJob = applyConfirmation(applicant, selectedJob);
 
                 if (selectedJob != null) {
@@ -51,12 +51,13 @@ public class ApplicationController {
                     updateListsAfterApplication(applicant, selectedJob, applicants, companies);
 
                     // Print the applicant's applications and all applications
-                    printApplicantApplications(applicant);
-                    printAllApplicantApplications(applicants);
-                    printAllCompanyJobApplications(companies);
+                    //printApplicantApplications(applicant);
+                    //printAllApplicantApplications(applicants);
+                    //printAllCompanyJobApplications(companies);
+                    System.out.println("\nYou have successfully applied for a job");
                 }
             }
-            System.out.println("Do you want to apply for another job? (y/n)");
+            System.out.println("\nDo you want to apply for another job? (y/n)");
             char continueChoice = ApplyUI.getInput();
             if (continueChoice != 'y' && continueChoice != 'Y') {
                 continueApplying = false;
@@ -94,7 +95,7 @@ public class ApplicationController {
                 String reqEdu = utility1.listToString(tempJob.getReqEdLevel());
                 String languages = utility1.listToString(tempJob.getLanguage());
                 tempJob = jobs.viewDataAtIndex(j);
-                ApplyUI.displayAllJob(jobNo, tempComp.getCompanyName(), tempJob.getTitle(), tempJob.getLocation(), tempJob.getReqSkill() + " " + tempJob.getReqEdLevel() + " " + tempJob.getLanguage(), tempJob.getDesc());
+                ApplyUI.displayAllJob(jobNo, tempComp.getCompanyName(), tempJob.getTitle(), tempJob.getLocation(), reqSkills + ", " + reqEdu + ", " + languages, tempJob.getDesc());
                 jobNo++;
             }
 
