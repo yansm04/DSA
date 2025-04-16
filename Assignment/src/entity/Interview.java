@@ -74,6 +74,10 @@ public class Interview implements Comparable<Interview> {
         this.status = status;
     }
 
+    public void reschedule(LocalDateTime newTime) {
+        this.interviewDateTime = newTime;
+    }
+
     @Override
     public String toString() {
         return "Interview ID: " + interviewID;

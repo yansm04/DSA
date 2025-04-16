@@ -74,6 +74,18 @@ public class InterviewSchedule {
         // check the interview date is on/after scheduleStartDate & on/before scheduleEndDate
         return (!interviewDate.isBefore(scheduleStartDate)) && (!interviewDate.isAfter(scheduleEndDate));
     }
+
+    // find interview using id
+    public Interview findInterviewById(String interviewId) {
+        for (int i = 0; i < scheduledInterviews.getSize(); i++) {
+            Interview intv = scheduledInterviews.viewDataAtIndex(i);
+            if (intv.getInterviewID().equals(interviewId)) {
+                return intv;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "InterviewSchedule{"

@@ -76,8 +76,8 @@ public class InterviewController {
                     appId = InterviewUI.promptApplicationId();
 
                     if (appId == 0) {
-                        return null;
-                    } else if (appId == 1) {
+                        continue;
+                    } else if (appId == -999) {
                         return null;
                     } else {
                         application = findApplicationByID(company, appId);
@@ -92,6 +92,7 @@ public class InterviewController {
                     break;
                 } catch (NumberFormatException e) {
                     InterviewUI.printErrorOption();
+                    continue;
                 }
                 case 1:
                     InterviewUI.dashLine();
@@ -117,7 +118,7 @@ public class InterviewController {
                         current = 1;
                         break;
                     } else if (!isValidInterviewDateTime(dateTimeStr)) {
-                        System.err.printf("%50s %s", " ", "Invalid date time, please enter again\n\n");
+                        InterviewUI.printInvalidDateTime();
                         current = 2;
                         break;
                     }
@@ -222,7 +223,7 @@ public class InterviewController {
             if (applications != null) {
                 for (int j = 0; j < applications.getSize(); j++) {
                     Application app = applications.viewDataAtIndex(j);
-                    if (app != null && app.getApplicationID() == appID) {
+                    if (app != null && app.getApplicationID() == appID && app.getInterview() == null) {
                         return app;
                     }
                 }
@@ -265,7 +266,8 @@ public class InterviewController {
                         app.getApplicationID(),
                         app.getJob().getTitle(),
                         app.getApplicant().getName(),
-                        app.getStatus());
+                        app.getStatus(),
+                        app.getScore());
             }
             InterviewUI.currentApplicationFooter();
             return true;
@@ -281,7 +283,172 @@ public class InterviewController {
     }
 
     public static void updateInterview() {
+        boolean continueOrNot = true;
+        boolean updateOrNot;
 
+        while (continueOrNot) {
+            utility1.clearScreen();
+            InterviewUI.interviewLogo();
+            InterviewUI.quitAndBackGuide();
+
+            ScheduleManager manager = ScheduleManager.getInstance();
+            InterviewSchedule schedule = manager.getCurrentSchedule();
+            if (schedule == null) {
+                InterviewUI.displayNoInterview();
+                MainMenuUI.pressEnterToContinue();
+                utility1.clearScreen();
+                return;
+            } else {
+                updateOrNot = updateInterviewDetails();
+                if (!updateOrNot) {
+                    continueOrNot = false;
+                    break;
+                }
+            }
+
+            if (updateOrNot) {
+                while (true) {
+                    String response = InterviewUI.promptUpdateOrNot();
+                    if (response.equalsIgnoreCase("n")) {
+                        continueOrNot = false;
+                        break;
+                    } else if (response.equalsIgnoreCase("y")) {
+                        break;
+                    } else {
+                        InterviewUI.printErrorOption();
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    private static boolean updateInterviewDetails() {
+        int current = 0;
+        Interview interview = new Interview();
+        String interviewType = "";
+        String dateTimeStr;
+        LocalDateTime currentDateTime = null;
+        ScheduleManager manager = ScheduleManager.getInstance();
+        LocalDate today = LocalDate.now();
+        LocalDateTime scheduledTime = null;
+        do {
+            switch (current) {
+                case 0:
+                    String interviewId = InterviewUI.promptInterviewId();
+                    if (interviewId == null || interviewId.equals("-999") || interviewId.equals("-111")) {
+                        return false;
+                    }
+                    // find interview using id
+                    InterviewSchedule schedule = manager.getCurrentSchedule();
+                    interview = schedule.findInterviewById(interviewId.toUpperCase());
+                    if (interview == null) {
+                        InterviewUI.printInterviewIdNotFound();
+                        continue;
+                    }
+
+                    // Check that update is allowed (at least one calendar day before the interview)
+                    scheduledTime = interview.getInterviewDateTime();
+                    LocalDate interviewDate = scheduledTime.toLocalDate();
+                    if (!today.isBefore(interviewDate)) {
+                        InterviewUI.printCannotUpdateInterview();
+                        continue;
+                    } else {
+                        InterviewUI.displayInterviewDetails(interview);
+                    }
+                    current = 1;
+                    break;
+                case 1:
+                    InterviewUI.dashLine();
+                    interviewType = InterviewUI.promptInterviewType();
+
+                    if (interviewType == null || interviewType.trim().isEmpty()) {
+                        current = 2;
+                        break;
+                    } else if (interviewType.equals("-999")) {
+                        return false;
+                    } else if (interviewType.equals("-111")) {
+                        current = 0;
+                        break;
+                    }
+                    current = 2;
+                    break;
+                case 2:
+                    InterviewUI.dashLine();
+                    dateTimeStr = InterviewUI.promptDateTime();
+                    if (dateTimeStr == null || dateTimeStr.trim().isEmpty()) {
+                        current = 3;
+                        break;
+                    } else if (dateTimeStr.equals("-999")) {
+                        return false;
+                    } else if (dateTimeStr.equals("-111")) {
+                        current = 1;
+                        break;
+                    } else if (!isValidInterviewDateTime(dateTimeStr)) {
+                        InterviewUI.printInvalidDateTime();
+                        current = 2;
+                        break;
+                    }
+                    // calculate end time for the interview
+                    currentDateTime = parseDateTime(dateTimeStr);
+                    // Check if the new date/time is the same as the current one.
+                    if (currentDateTime.equals(scheduledTime)) {
+                        current = 3;
+                        break;
+                    }
+
+                    // validate that the interview date falls within the current scheduling window
+                    if (manager.getCurrentSchedule() != null) {
+                        if (!manager.getCurrentSchedule().isWithinSchedule(currentDateTime)) {
+                            InterviewUI.printOutScheduleWindowError(manager.getCurrentSchedule().getScheduleStartDate(), manager.getCurrentSchedule().getScheduleEndDate());
+                            current = 2;
+                            break;
+                        }
+                    }
+
+                    LocalDateTime interviewEndTime = currentDateTime.plusHours(1);
+
+                    // check for scheduling conflict using global schedule in ScheduleManager
+                    if (checkForConflict(currentDateTime, interviewEndTime)) {
+                        InterviewUI.printConflictTimeError();
+                        current = 2;
+                        break;
+                    }
+
+                    // ensure the new interview date is at least one calendar day ahead
+                    LocalDate newInterviewDate = currentDateTime.toLocalDate();
+                    if (!newInterviewDate.isAfter(today)) {
+                        System.err.printf("%50s %s", " ", "Interview date must be at least one calendar day ahead\n");
+                        current = 2;
+                        break;
+                    }
+                    current = 3;
+                    break;
+                case 3:
+                    InterviewUI.dashLine();
+                    String cfm;
+                    do {
+                        cfm = InterviewUI.promptConfirmation();
+                        if (cfm.equals("y")) {
+                            interview.setInterviewType(interviewType);
+                            interview.reschedule(currentDateTime);
+                            InterviewUI.displayUpdatedInterview(interview);
+                            current = 4;
+                            break;
+                        } else if (cfm.equals("n")) {
+                            current = 2;
+                            break;
+                        } else if (cfm.equals("q")) {
+                            return false;
+                        } else {
+                            InterviewUI.printErrorOption();
+                        }
+                    } while (!cfm.equals("y") && !cfm.equals("n"));
+            }
+
+        } while (current != 4);
+        return true;
     }
 
     public static void removeInterview() {
@@ -312,8 +479,8 @@ public class InterviewController {
     private static boolean validateInterviewTime(LocalDateTime time) {
         LocalDateTime now = LocalDateTime.now();
 
-        // at least one day ahead
-        if (!time.isAfter(now.plusDays(1))) {
+        // Check that the interview's calendar date is after today's date.
+        if (!time.toLocalDate().isAfter(now.toLocalDate())) {
             return false;
         }
         // business hours: mon to fri, 09:00 to 17:00
@@ -336,5 +503,4 @@ public class InterviewController {
         }
         return false;
     }
-
 }
