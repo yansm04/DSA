@@ -60,6 +60,23 @@ public class MainMenuUI {
 
     }
 
+    public static int manageCompanyMenuUI() {
+        System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         1. C                          |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         2. R                          |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         3. U                          |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         4. D                          |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         5. VIew All Matched Result    |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         0. Exit                       |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
+        System.out.println();
+        System.out.printf("%67sEnter your choice (0-5): ", " ");
+        return Integer.parseInt(sc.nextLine());
+
+    }
+
     public static int applicantMenuUI() {
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));

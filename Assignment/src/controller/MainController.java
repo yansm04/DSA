@@ -107,6 +107,7 @@ public class MainController {
                     return null;
                 } else if (choice == 999) {
                     // some crud company function here
+                    companyModuleMenu(companies);
 
                 } else if (choice >= 1 && choice <= companies.getSize()) {
                     Company selectedCompany = companies.viewDataAtIndex(choice - 1);
@@ -138,9 +139,48 @@ public class MainController {
                         break;
 
                     case 2:
-
+                        MatchingController.mainMatch(company, applicants);
                     //Company view Applications with matched results
                     case 3:
+                        return;
+                    default:
+                        MainMenuUI.printInvalidMenuChoice();
+                        MainMenuUI.pressEnterToContinue();
+                        break;
+                }
+            } catch (NumberFormatException e) {
+                MainMenuUI.printInvalidMenuChoice();
+                MainMenuUI.pressEnterToContinue();
+            }
+        }
+    }
+
+    public static void companyModuleMenu(SortedListInterface<Company> companies) {
+        while (true) {
+            utility1.clearScreen();
+            MainMenuUI.mainLogo();
+            try {
+                int choice = MainMenuUI.manageCompanyMenuUI();
+
+                switch (choice) {
+                    case 1:
+                        // C
+                        
+                        break;
+
+                    case 2:
+                        
+                    //R
+                    case 3:
+                        //U
+                        break;
+                    case 4:
+                        //D:
+                        break;
+                    case 5:
+                        MatchingController.matchReport(companies);
+                        break;
+                    case 0:
                         return;
                     default:
                         MainMenuUI.printInvalidMenuChoice();
