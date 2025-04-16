@@ -4,13 +4,11 @@
  */
 package boundary;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import utility.utility1;
 
-/**
- *
- * @author USER
- */
 public class InterviewUI {
 
     public static Scanner sc = new Scanner(System.in);
@@ -41,7 +39,7 @@ public class InterviewUI {
     }
 
     public static void currentApplicationHeading(String companyName) {
-        System.out.printf("\n%58s Current Applications for %s\n\n", " ", companyName);
+        System.out.printf("\n%55s Current Applications to be Scheduled for %s\n\n", " ", companyName);
         System.out.printf("%30s%s\n", "", "+=================================================================================================+");
         System.out.printf("%30s| %s | %14s %10s | %20s %10s | %11s %4s |\n", "", "Application ID", "Job", "", "Applicant", "", "Status", "");
         System.out.printf("%30s%s\n", "", "+================|===========================|=================================|==================+");
@@ -61,6 +59,109 @@ public class InterviewUI {
         System.out.println("\u001B[31m" + utility1.alignCenter("   +==========================================+", utility1.totalWidth) + "\u001B[0m");
         System.out.println("\u001B[31m" + utility1.alignCenter("   |          No application found!           |", utility1.totalWidth) + "\u001B[0m");
         System.out.println("\u001B[31m" + utility1.alignCenter("   +==========================================+", utility1.totalWidth) + "\u001B[0m");
+    }
+
+    public static void quitAndBackGuide() {
+        System.out.println(utility1.alignCenter("          +=====================================================================+", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("          |                Enter '-111' : Back to Previous Input                |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("          |                Enter '-999' : Back to Previous Menu                 |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("          +=====================================================================+", utility1.totalWidth));
+        System.out.println();
+    }
+
+    public static void dashLine() {
+        System.out.println();
+        System.out.println(utility1.alignCenter("          =============================================================================", utility1.totalWidth));
+        System.out.println();
+    }
+
+    public static int promptApplicationId() {
+        while (true) {
+            System.out.printf("\n%50s %s", " ", "Enter an Application ID to schedule an interview: ");
+            int appId = Integer.parseInt(sc.nextLine());
+
+            if (appId == -111 || appId == -999) {
+                return 1;
+            } else {
+                return appId;
+            }
+        }
+    }
+
+    public static String promptInterviewType() {
+        while (true) {
+            System.out.printf("%50s %s", " ", "Select interview type (A = On-site, B = Online): ");
+            String type = sc.nextLine().toUpperCase();
+
+            if (type.equals("-111") || type.equals("-999")) {
+                return type;
+            } else {
+                switch (type) {
+                    case "A":
+                        return "On-site";
+                    case "B":
+                        return "Online";
+                    default:
+                        System.err.printf("%50s %s", " ", "Invalid input, only A (On-site) or B (Online) is allowed\n\n");
+                }
+            }
+        }
+    }
+
+    public static String promptDateTime() {
+        while (true) {
+            System.out.printf("%50s %s\n\n", " ", "Interview time must be at least one day ahead and fall within business hours (Mon-Fri, 9am-5pm).");
+            System.out.printf("%50s %s", " ", "Enter interview date and time (format: dd-MM-yyyy HH:mm): ");
+            return sc.nextLine().trim();
+        }
+    }
+
+    public static void printConflictTimeError() {
+        System.err.printf("%50s %s", " ", "There's a scheduling conflict with an existing interview during the chosen time slot.");
+    }
+
+    public static void printOutScheduleWindowError(LocalDate startDate, LocalDate endDate) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String start = startDate.format(dateFormatter);
+        String end = endDate.format(dateFormatter);
+        System.err.printf("%50s Interview date is outside the current scheduling window (%s to %s)", " ", start, end);
+    }
+
+    public static String promptConfirmation() {
+        System.out.printf("%50s %s", " ", "Confirm (Y = yes / N = no / Q = Quit)? ");
+        return sc.nextLine().toLowerCase();
+    }
+
+    public static void printErrorOption() {
+        System.err.printf("%51sInvalid input, please enter your response again\n\n", " ");
+    }
+
+    public static void printConfirmedInterview(String interviewId, String interviewType, String dateTimeStr, String applicant, String jobTitle, String status) {
+        System.out.println();
+        System.out.println(utility1.alignCenter("+==================================================+", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("|              New Interview Details               |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("|==================================================|", utility1.totalWidth));
+        System.out.printf("%54s| Interview ID          : %-25s|\n", " ", interviewId);
+        System.out.printf("%54s| Interview Type        : %-25s|\n", " ", interviewType);
+        System.out.printf("%54s| Date and Time         : %-25s|\n", " ", dateTimeStr);
+        System.out.printf("%54s| Applicant             : %-25s|\n", " ", applicant);
+        System.out.printf("%54s| Job                   : %-25s|\n", " ", jobTitle);
+        System.out.printf("%54s| Status                : %-25s|\n", " ", status);
+        System.out.println(utility1.alignCenter("+==================================================+", utility1.totalWidth));
+    }
+
+    public static void printSuccessMessage(String applicant) {
+        System.out.println();
+        System.out.println("\u001B[32m" + utility1.alignCenter("   +===========================================+", utility1.totalWidth) + "\u001B[0m");
+        System.out.println("\u001B[32m" + utility1.alignCenter("   |      Interview scheduled successfully!    |", utility1.totalWidth) + "\u001B[0m");
+        System.out.println("\u001B[32m" + utility1.alignCenter("   +===========================================+", utility1.totalWidth) + "\u001B[0m");
+        System.out.printf("\n%59sNotified applicant: %s\n", " ", applicant);
+    }
+
+    public static String promptContinueOrNot() {
+        System.out.printf("\n%50s %s", " ", "Do you want to schedule another interview (Y = yes / N = no)? ");
+        return sc.nextLine();
+
     }
 
 }
