@@ -26,6 +26,7 @@ public class Job implements Comparable<Job> {
     private SortedListInterface<Application> application = new SortedDoublyLinkedList<>();
     private String location;
     private Company company;
+    private int status;
 
     public Job() {
     }
@@ -41,9 +42,10 @@ public class Job implements Comparable<Job> {
         this.salary = salary;
         this.location = location;
         this.application = application;
+        
     }
 
-    public Job(Company company, String jobID, String title, String desc, SortedListInterface<String> reqSkill, SortedListInterface<String> reqEdLevel, SortedListInterface<String> fos, SortedListInterface<String> language, int salary, String location, SortedListInterface<Application> application) {
+    public Job(Company company, String jobID, String title, String desc, SortedListInterface<String> reqSkill, SortedListInterface<String> reqEdLevel, SortedListInterface<String> fos, SortedListInterface<String> language, int salary, String location, SortedListInterface<Application> application, int status) {
         this.jobID = jobID;
         this.title = title;
         this.desc = desc;
@@ -55,6 +57,8 @@ public class Job implements Comparable<Job> {
         this.location = location;
         this.application = application;
         this.company = company;
+        this.status = status;
+                
     }
 
     public Company getCompany() {
@@ -144,6 +148,15 @@ public class Job implements Comparable<Job> {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
 
     @Override
     public String toString() {

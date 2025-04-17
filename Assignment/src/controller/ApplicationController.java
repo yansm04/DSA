@@ -76,15 +76,16 @@ public class ApplicationController {
 //        return Initializer.initializeApplicant();
 //    }
     public static int displayAllJobs(SortedListInterface<Company> companies) {
-        ApplyUI.printFloor(174);
+        ApplyUI.printFloor(187);
         ApplyUI.header();
-        ApplyUI.printFloor(174);
+        ApplyUI.printFloor(187);
 
         SortedListInterface<Job> jobs = new SortedDoublyLinkedList<>();
 
         Company tempComp = new Company();
         Job tempJob = new Job();
         int jobNo = 1;
+        String status;
 
         for (int i = 0; i < companies.getSize(); i++) {
             tempComp = companies.viewDataAtIndex(i);
@@ -96,12 +97,17 @@ public class ApplicationController {
                 String reqEdu = utility1.listToString(tempJob.getReqEdLevel());
                 String languages = utility1.listToString(tempJob.getLanguage());
                 tempJob = jobs.viewDataAtIndex(j);
-                ApplyUI.displayAllJob(jobNo, tempComp.getCompanyName(), tempJob.getTitle(), tempJob.getLocation(), reqSkills + ", " + reqEdu + ", " + languages, tempJob.getDesc());
+                if (tempJob.getStatus() == 1) {
+                    status = "Open";
+                } else {
+                    status = "Closed";
+                }
+                ApplyUI.displayAllJob(jobNo, tempComp.getCompanyName(), tempJob.getTitle(), tempJob.getLocation(), reqSkills + ", " + reqEdu + ", " + languages, tempJob.getDesc(), status);
                 jobNo++;
             }
 
         }
-        ApplyUI.printFloor(174);
+        ApplyUI.printFloor(187);
         return jobNo;
     }
 
@@ -126,9 +132,9 @@ public class ApplicationController {
                     count++;
                 }
             }
-        }
-        else
+        } else {
             MainMenuUI.printInvalidMenuChoice();
+        }
 
         return null;
     }
@@ -141,14 +147,19 @@ public class ApplicationController {
         String fosStr = utility1.listToString(selectedJob.getFos());
 
         confirmation = ApplyUI.applyConfirmation(selectedJob.getCompany().getCompanyName(), selectedJob.getCompany().getEmail(), selectedJob.getTitle(), selectedJob.getLocation(), skillStr, eduStr, langStr, selectedJob.getDesc(), fosStr, selectedJob.getSalary());
-        if (confirmation != 'y' && confirmation != 'Y') {
-            System.out.println("Cancelled application");
+        if (selectedJob.getStatus() == 1) {
+            if (confirmation != 'y' && confirmation != 'Y') {
+                System.out.println("\nCancelled application");
+                return null;
+
+            } else {
+
+                return selectedJob;
+
+            }
+        }else{
+            System.out.println("\nThe current job status is closed, please apply other jobs");
             return null;
-
-        } else {
-
-            return selectedJob;
-
         }
     }
 
