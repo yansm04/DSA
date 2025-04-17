@@ -14,14 +14,14 @@ public class ApplyUI {
 
      public static void header() {
         
-        System.out.printf("| %-5s | %-20s | %-20s | %-15s | %-60s | %-35s |\n","No.", "Company","Job", "Location", "Requirement", "Description");
+        System.out.printf("| %-5s | %-20s | %-20s | %-15s | %-60s | %-35s | %-10s |\n","No.", "Company","Job", "Location", "Requirement", "Description", "Status");
         
     }
 
     public static void displayAllJob(int jobNo,String companyName, String jobName, String location, 
-                                     String requirement, String description) {
-        System.out.printf("| %-5d | %-20s | %-20s | %-15s | %-60s | %-35s |\n", jobNo,
-                          companyName, jobName, location, requirement, description);
+                                     String requirement, String description, String status) {
+        System.out.printf("| %-5d | %-20s | %-20s | %-15s | %-60s | %-35s | %-10s |\n", jobNo,
+                          companyName, jobName, location, requirement, description, status);
     }
     
     
