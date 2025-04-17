@@ -34,11 +34,22 @@ public class ApplyUI {
     }
     
     public static int printMenu(){
-        System.out.println("Select Job According to Number ( Type \"0\" to exit) ");
-        System.out.print("Your selection: ");
+        
+        int number;
         Scanner scanner = new Scanner(System.in);
-        int selection = scanner.nextInt();
-        return selection;
+        while (true) {
+            System.out.println("Select options According to Number ( Type \"0\" to exit) ");
+            System.out.print("Your selection: ");
+            String input = scanner.nextLine().trim();
+            try {
+                number = Integer.parseInt(input);
+                return number;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.\n\n");
+            }
+        }
+        
+        
         
     }
     public static char applyConfirmation(String companyName,String companyEmail, String jobTitle, String jobLocation, String reqSkill, String reqEdLevel, String language, String desc, String fos ,int salary){
