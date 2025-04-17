@@ -24,9 +24,7 @@ public class ApplicationController {
 
     public static void mainApplication(Applicant applicant, SortedListInterface<Company> companies, SortedListInterface<Applicant> applicants) {
 
-        //Intitialize COmpany with jobs and applicants
-//        SortedListInterface<Company> companies = initializeJobs();
-//        SortedListInterface<Applicant> applicants = initializeApplicant();
+
         //Select Applicant here
         boolean continueApplying = true;
         while (continueApplying) {
@@ -43,18 +41,13 @@ public class ApplicationController {
                         System.out.println("You have already applied for this job. Application cancelled.");
                         continue;
                     }
-                    // Add application to both applicant and job
-//                    applicant = addApplicationToApplicant(applicant, selectedJob);
-//                    selectedJob = addApplicationToJob(applicant, selectedJob);
+
                     addApplication(applicant, selectedJob);
 
                     // Update the lists after the application
                     updateListsAfterApplication(applicant, selectedJob, applicants, companies);
 
-                    // Print the applicant's applications and all applications
-                    //printApplicantApplications(applicant);
-                    //printAllApplicantApplications(applicants);
-                    //printAllCompanyJobApplications(companies);
+                    
                     System.out.println("\nYou have successfully applied for a job");
                 }
             }
@@ -68,13 +61,8 @@ public class ApplicationController {
 
     }
 
-//    public static SortedListInterface<Company> initializeJobs() {
-//        return Initializer.initializeCompanyJob();
-//    }
-//
-//    public static SortedListInterface<Applicant> initializeApplicant() {
-//        return Initializer.initializeApplicant();
-//    }
+
+
     public static int displayAllJobs(SortedListInterface<Company> companies) {
         ApplyUI.printFloor(187);
         ApplyUI.header();
@@ -163,41 +151,6 @@ public class ApplicationController {
         }
     }
 
-//    public static Applicant addApplicationToApplicant(Applicant applicant, Job selectedJob) {
-//        if (applicant.getApplication() == null) {
-//            applicant.setApplication(new SortedDoublyLinkedList<>());
-//        }
-//        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
-//        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
-//
-//        //setting up application
-//        Application application = new Application(selectedJob, applicant, "Not Approved", null);
-//        application.setApplicant(applicant);
-//
-//        //setting up application in applicant
-//        applicationsApplicant.addWithSort(application);
-//        applicant.setApplication(applicationsApplicant);
-//
-//        return applicant;
-//
-//    }
-//    public static Job addApplicationToJob(Applicant applicant, Job selectedJob) {
-//        if (applicant.getApplication() == null) {
-//            applicant.setApplication(new SortedDoublyLinkedList<>());
-//        }
-//        SortedListInterface<Application> applicationsApplicant = applicant.getApplication();
-//        SortedListInterface<Application> applicationsJob = selectedJob.getApplication();
-//
-//        //setting up application
-//        Application application = new Application(selectedJob, applicant, "Not Approved", null);
-//        application.setApplicant(applicant);
-//
-//        //setting up application in applicant
-//        applicationsJob.addWithSort(application);
-//        selectedJob.setApplication(applicationsApplicant);
-//
-//        return selectedJob;
-//    }
     public static void addApplication(Applicant applicant, Job selectedJob) {
         if (applicant.getApplication() == null) {
             applicant.setApplication(new SortedDoublyLinkedList<>());
@@ -209,7 +162,8 @@ public class ApplicationController {
         Application application = new Application(selectedJob, applicant, "Not Approved", null);
         application.setApplicant(applicant);
 
-        applicant.getApplication().addWithSort(application);
+        //applicant.getApplication().addWithSort(application);
+        applicant.addApplication(application);
         selectedJob.getApplication().addWithSort(application);
     }
 
@@ -258,7 +212,7 @@ public class ApplicationController {
             }
         }
     }
-
+    //For debug Purpose
     public static void printApplicantApplications(Applicant applicant) {
         System.out.println("\n Applications under Applicant " + applicant.getName() + ":");
 

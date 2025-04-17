@@ -119,7 +119,9 @@ public class Applicant implements Comparable<Applicant> {
     public void setLanguage(SortedListInterface<String> language) {
         this.language = language;
     }
-    
+    public void addApplication(Application application){
+        this.application.addWithSort(application);
+    }
 
     @Override
     public int compareTo(Applicant other) {
