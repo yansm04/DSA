@@ -5,10 +5,12 @@
 package controller;
 
 import adt.SortedListInterface;
+import adt.SortedDoublyLinkedList;
 import boundary.MainMenuUI;
 import dao.Initializer;
 import entity.Applicant;
 import entity.Company;
+import entity.Application;
 import utility.utility1;
 
 /**
@@ -20,6 +22,7 @@ public class MainController {
     public static void runAll() {
         SortedListInterface<Company> companies = initializeJobs();
         SortedListInterface<Applicant> applicants = initializeApplicant();
+        SortedListInterface<Application> rejectedApplication = new SortedDoublyLinkedList<>();
 
         while (true) {
             int selection = userTypeMenu(companies);
@@ -35,11 +38,11 @@ public class MainController {
                 }
             } else if (selection == 2) {
                 while (true) {
-                    Company selectedCompany = selectCompany(companies);
+                    Company selectedCompany = selectCompany(companies,rejectedApplication);
                     if (selectedCompany == null) {
                         break;
                     }
-                    companyMenu(selectedCompany, applicants);
+                    companyMenu(selectedCompany, applicants, rejectedApplication);
                 }
             } else {
                 return;
@@ -96,7 +99,7 @@ public class MainController {
         return MainMenuUI.selectFooter();
     }
 
-    public static Company selectCompany(SortedListInterface<Company> companies) {
+    public static Company selectCompany(SortedListInterface<Company> companies,SortedListInterface<Application> rejectedApplication) {
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -107,7 +110,7 @@ public class MainController {
                     return null;
                 } else if (choice == 999) {
                     // some crud company function here
-                    companyModuleMenu(companies);
+                    companyModuleMenu(companies, rejectedApplication);
 
                 } else if (choice >= 1 && choice <= companies.getSize()) {
                     Company selectedCompany = companies.viewDataAtIndex(choice - 1);
@@ -125,7 +128,7 @@ public class MainController {
 
     }
 
-    public static void companyMenu(Company company, SortedListInterface<Applicant> applicants) {
+    public static void companyMenu(Company company, SortedListInterface<Applicant> applicants, SortedListInterface<Application> rejectedApplication) {
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -139,7 +142,7 @@ public class MainController {
                         break;
 
                     case 2:
-                        MatchingController.mainMatch(company, applicants);
+                        MatchingController.mainMatch(company, applicants, rejectedApplication);
                     //Company view Applications with matched results
                     case 3:
                         return;
@@ -155,7 +158,7 @@ public class MainController {
         }
     }
 
-    public static void companyModuleMenu(SortedListInterface<Company> companies) {
+    public static void companyModuleMenu(SortedListInterface<Company> companies, SortedListInterface<Application> rejectedApplication) {
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -178,7 +181,7 @@ public class MainController {
                         //D:
                         break;
                     case 5:
-                        MatchingController.matchReport(companies);
+                        MatchingController.matchReport(companies,rejectedApplication);
                         break;
                     case 0:
                         return;

@@ -19,15 +19,16 @@ public class utility1 {
     public static int totalWidth = 160;
 
     public static String listToString(SortedListInterface<String> list) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.getSize(); i++) {
-            sb.append(list.viewDataAtIndex(i));
-            if (i < list.getSize() - 1) {
-                sb.append(", ");
-            }
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < list.getSize(); i++) {
+        String value = list.viewDataAtIndex(i).replace("\n", "").trim(); // Remove line breaks
+        sb.append(value);
+        if (i < list.getSize() - 1) {
+            sb.append(", ");
         }
-        return sb.toString();
     }
+    return sb.toString();
+}
 
     public static String alignCenter(String text, int totalWidth) {
         // Calculate the number of spaces needed on each side to center-align the text

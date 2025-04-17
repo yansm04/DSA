@@ -15,33 +15,46 @@ import boundary.*;
  */
 public class MatchingController {
 
-    public static void mainMatch(Company company, SortedListInterface<Applicant> applicants) {
+    public static void mainMatch(Company company, SortedListInterface<Applicant> applicants, SortedListInterface<Application> rejectedApplication) {
         int noOfMatch;
         int noOfNode = 0;
-        noOfNode = findNoOfMatch(company, applicants,1);
+        noOfNode = findNoOfMatch(company, applicants, 1, rejectedApplication);
 
     }
 
-    public static void matchReport(SortedListInterface<Company> companies) {
+    public static void matchReport(SortedListInterface<Company> companies, SortedListInterface<Application> rejectedApplication) {
         for (int i = 0; i < companies.getSize(); i++) {
             Company company = companies.viewDataAtIndex(i);
             System.out.println("\n=======================================");
             System.out.println("Matching Results for Company: " + company.getCompanyName());
             System.out.println("=======================================");
 
-            findNoOfMatch(company, null,0); // We reuse existing logic
+            findNoOfMatch(company, null, 0, rejectedApplication); // We reuse existing logic
+        }
+
+        MatchUI.rejectedOnes();
+
+        for (int i = 0; i < rejectedApplication.getSize(); i++) {
+            Application app = rejectedApplication.viewDataAtIndex(i);
+            MatchUI.showRejectedApplicant(
+                    app.getJob().getCompany().getCompanyName(),
+                    app.getJob().getTitle(),
+                    app.getApplicant().getName(),
+                    app.getScore()
+            );
         }
 
         System.out.print("\nPress any key to return: ");
         ApplyUI.getInput();
     }
 
-    public static int findNoOfMatch(Company company, SortedListInterface<Applicant> applicants, int sohai) {
+    public static int findNoOfMatch(Company company, SortedListInterface<Applicant> applicants, int sohai, SortedListInterface<Application> rejectedApplication) {
         int noOfNode;
         double weight;
+        Job job = new Job();
         for (int i = 0; i < company.getJob().getSize(); i++) {
             noOfNode = 0;
-            Job job = company.getJob().viewDataAtIndex(i);
+            job = company.getJob().viewDataAtIndex(i);
             SortedListInterface<String> reqSkill = job.getReqSkill();
             SortedListInterface<String> reqEdLevel = job.getReqEdLevel();
             SortedListInterface<String> fos = job.getFos();
@@ -63,13 +76,51 @@ public class MatchingController {
 
                 double score = matchCount * weight;
                 app.setScore(score);
+                if (score < 0.4) {
+                    rejectedApplication.addWithSort(app);
+
+                }
 
                 // printApplicationsDescendingScore(job.getApplication(), job.getTitle());
             }
+
+            for (int j = 0; j < job.getApplication().getSize(); j++) {
+                Application app = job.getApplication().viewDataAtIndex(j);
+                //Remove from job's list
+                if (app.getScore() < 0.4) {
+                    Applicant applicant = app.getApplicant();
+                    job.getApplication().removeByIndex(j);
+
+                    // Remove from applicant's list
+                    SortedListInterface<Application> applicantApps = applicant.getApplication();
+                    for (int k = 0; k < applicantApps.getSize(); k++) {
+                        if (applicantApps.viewDataAtIndex(k).equals(app)) {
+                            applicantApps.removeByIndex(k);
+                            break;
+                        }
+                    }
+                    j--; // step back index
+                }
+            }
+
             printApplicationsDescendingScore(job.getApplication(), job.getTitle(), job.getCompany().getCompanyName());
             // System.out.println("\n\nNo of Node: "+ noOfNode);
+
         }
+        
+
         if (sohai == 1) {
+            for (int k = 0; k < rejectedApplication.getSize(); k++) {
+                Application tempApp = rejectedApplication.viewDataAtIndex(k);
+                if (tempApp.getJob().getCompany().getCompanyName().equals(job.getCompany().getCompanyName())) {
+                    MatchUI.showRejectedApplicant(
+                            tempApp.getJob().getCompany().getCompanyName(),
+                            tempApp.getJob().getTitle(),
+                            tempApp.getApplicant().getName(),
+                            tempApp.getScore()
+                    );
+                }
+            }
             System.out.println("Please press anything to continue: ");
             char random = ApplyUI.getInput();
         }
