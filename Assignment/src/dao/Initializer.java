@@ -7,6 +7,7 @@ package dao;
 import adt.SortedDoublyLinkedList;
 import entity.*;
 import adt.SortedListInterface;
+import java.util.Random;
 
 /**
  *
@@ -140,7 +141,7 @@ public class Initializer {
         SortedListInterface<String> workingExp1 = new SortedDoublyLinkedList<>();
         workingExp1.addWithSort("Software Developer Intern");
         SortedListInterface<String> education1 = new SortedDoublyLinkedList<>();
-        education1.addWithSort("Bachelor in Computer Science");
+        education1.addWithSort("Degree");
         SortedListInterface<String> language1 = new SortedDoublyLinkedList<>();
         language1.addWithSort("English");
         applicants.addWithSort(new Applicant("1001", "Clement", "c@gmail.com", 21, skills1, workingExp1, education1, null, language1));
@@ -152,7 +153,7 @@ public class Initializer {
         SortedListInterface<String> workingExp2 = new SortedDoublyLinkedList<>();
         workingExp2.addWithSort("Computer Science");
         SortedListInterface<String> education2 = new SortedDoublyLinkedList<>();
-        education2.addWithSort("Bachelor's Degree");
+        education2.addWithSort("Degree");
         SortedListInterface<String> language2 = new SortedDoublyLinkedList<>();
         language2.addWithSort("English");
         applicants.addWithSort(new Applicant("1002", "Alice", "alice@gmail.com", 22, skills2, workingExp2, education2, null, language2));
@@ -164,7 +165,7 @@ public class Initializer {
         SortedListInterface<String> workingExp3 = new SortedDoublyLinkedList<>();
         workingExp3.addWithSort("Engineering Intern");
         SortedListInterface<String> education3 = new SortedDoublyLinkedList<>();
-        education3.addWithSort("Bachelor in Mechanical Engineering");
+        education3.addWithSort("Degree");
         SortedListInterface<String> language3 = new SortedDoublyLinkedList<>();
         language3.addWithSort("English");
         applicants.addWithSort(new Applicant("1003", "Bob", "bob@gmail.com", 23, skills3, workingExp3, education3, null, language3));
@@ -176,7 +177,7 @@ public class Initializer {
         SortedListInterface<String> workingExp4 = new SortedDoublyLinkedList<>();
         workingExp4.addWithSort("Medical Intern");
         SortedListInterface<String> education4 = new SortedDoublyLinkedList<>();
-        education4.addWithSort("Bachelor in Medical Science");
+        education4.addWithSort("Degree");
         SortedListInterface<String> language4 = new SortedDoublyLinkedList<>();
         language4.addWithSort("English");
         applicants.addWithSort(new Applicant("1004", "David", "david@gmail.com", 24, skills4, workingExp4, education4, null, language4));
@@ -188,7 +189,7 @@ public class Initializer {
         SortedListInterface<String> workingExp5 = new SortedDoublyLinkedList<>();
         workingExp5.addWithSort("Research Assistant");
         SortedListInterface<String> education5 = new SortedDoublyLinkedList<>();
-        education5.addWithSort("Bachelor in Psychology");
+        education5.addWithSort("Degree");
         SortedListInterface<String> language5 = new SortedDoublyLinkedList<>();
         language5.addWithSort("English");
         applicants.addWithSort(new Applicant("1005", "Eve", "eve@gmail.com", 25, skills5, workingExp5, education5, null, language5));
@@ -200,7 +201,7 @@ public class Initializer {
         SortedListInterface<String> workingExp6 = new SortedDoublyLinkedList<>();
         workingExp6.addWithSort("Accounting Intern");
         SortedListInterface<String> education6 = new SortedDoublyLinkedList<>();
-        education6.addWithSort("Bachelor in Accounting");
+        education6.addWithSort("Degree");
         SortedListInterface<String> language6 = new SortedDoublyLinkedList<>();
         language6.addWithSort("English");
         applicants.addWithSort(new Applicant("1006", "Frank", "frank@gmail.com", 22, skills6, workingExp6, education6, null, language6));
@@ -212,7 +213,7 @@ public class Initializer {
         SortedListInterface<String> workingExp7 = new SortedDoublyLinkedList<>();
         workingExp7.addWithSort("Art Assistant");
         SortedListInterface<String> education7 = new SortedDoublyLinkedList<>();
-        education7.addWithSort("Bachelor in Fine Arts");
+        education7.addWithSort("Degree");
         SortedListInterface<String> language7 = new SortedDoublyLinkedList<>();
         language7.addWithSort("English");
         applicants.addWithSort(new Applicant("1007", "Grace", "grace@gmail.com", 23, skills7, workingExp7, education7, null, language7));
@@ -224,7 +225,7 @@ public class Initializer {
         SortedListInterface<String> workingExp8 = new SortedDoublyLinkedList<>();
         workingExp8.addWithSort("Journalism Intern");
         SortedListInterface<String> education8 = new SortedDoublyLinkedList<>();
-        education8.addWithSort("Bachelor in Journalism");
+        education8.addWithSort("Degree");
         SortedListInterface<String> language8 = new SortedDoublyLinkedList<>();
         language8.addWithSort("English");
         applicants.addWithSort(new Applicant("1008", "Hank", "hank@gmail.com", 24, skills8, workingExp8, education8, null, language8));
@@ -236,7 +237,7 @@ public class Initializer {
         SortedListInterface<String> workingExp9 = new SortedDoublyLinkedList<>();
         workingExp9.addWithSort("Hotel Management Intern");
         SortedListInterface<String> education9 = new SortedDoublyLinkedList<>();
-        education9.addWithSort("Bachelor in Hospitality Management");
+        education9.addWithSort("Degree");
         SortedListInterface<String> language9 = new SortedDoublyLinkedList<>();
         language9.addWithSort("English");
         applicants.addWithSort(new Applicant("1009", "Ivy", "ivy@gmail.com", 22, skills9, workingExp9, education9, null, language9));
@@ -248,7 +249,7 @@ public class Initializer {
         SortedListInterface<String> workingExp10 = new SortedDoublyLinkedList<>();
         workingExp10.addWithSort("Civil Engineering Intern");
         SortedListInterface<String> education10 = new SortedDoublyLinkedList<>();
-        education10.addWithSort("Bachelor in Civil Engineering");
+        education10.addWithSort("Degree");
         SortedListInterface<String> language10 = new SortedDoublyLinkedList<>();
         language10.addWithSort("English");
         applicants.addWithSort(new Applicant("1010", "Jack", "jack@gmail.com", 23, skills10, workingExp10, education10, null, language10));
@@ -260,7 +261,7 @@ public class Initializer {
         SortedListInterface<String> workingExp11 = new SortedDoublyLinkedList<>();
         workingExp11.addWithSort("Chef Assistant");
         SortedListInterface<String> education11 = new SortedDoublyLinkedList<>();
-        education11.addWithSort("Diploma in Culinary Arts");
+        education11.addWithSort("Diploma");
         SortedListInterface<String> language11 = new SortedDoublyLinkedList<>();
         language11.addWithSort("English");
         applicants.addWithSort(new Applicant("1011", "Kathy", "kathy@gmail.com", 22, skills11, workingExp11, education11, null, language11));
@@ -272,7 +273,7 @@ public class Initializer {
         SortedListInterface<String> workingExp12 = new SortedDoublyLinkedList<>();
         workingExp12.addWithSort("Legal Intern");
         SortedListInterface<String> education12 = new SortedDoublyLinkedList<>();
-        education12.addWithSort("Bachelor in Law");
+        education12.addWithSort("Degree");
         SortedListInterface<String> language12 = new SortedDoublyLinkedList<>();
         language12.addWithSort("English");
         applicants.addWithSort(new Applicant("1012", "Leo", "leo@gmail.com", 24, skills12, workingExp12, education12, null, language12));
@@ -284,12 +285,81 @@ public class Initializer {
         SortedListInterface<String> workingExp13 = new SortedDoublyLinkedList<>();
         workingExp13.addWithSort("Architect Intern");
         SortedListInterface<String> education13 = new SortedDoublyLinkedList<>();
-        education13.addWithSort("Bachelor in Architecture");
+        education13.addWithSort("Degree");
         SortedListInterface<String> language13 = new SortedDoublyLinkedList<>();
         language13.addWithSort("English");
         applicants.addWithSort(new Applicant("1013", "Mia", "mia@gmail.com", 23, skills13, workingExp13, education13, null, language13));
 
         return applicants;
+    }
+        public static SortedListInterface<String> initializeSkills() {
+        SortedListInterface<String> skills = new SortedDoublyLinkedList<>();
+        skills.addWithSort("Java");
+        skills.addWithSort("Python");
+        skills.addWithSort("SQL");
+        skills.addWithSort("Communication");
+        skills.addWithSort("Problem Solving");
+        skills.addWithSort("Teamwork");
+        skills.addWithSort("Time Management");
+        skills.addWithSort("C++");
+        skills.addWithSort("HTML/CSS");
+        skills.addWithSort("JavaScript");
+        skills.addWithSort("Project Management");
+        skills.addWithSort("Critical Thinking");
+        skills.addWithSort("Machine Learning");
+        skills.addWithSort("Data Analysis");
+        skills.addWithSort("Customer Service");
+        skills.addWithSort("Excel");
+        skills.addWithSort("SEO");
+        skills.addWithSort("Content Writing");
+        skills.addWithSort("Adobe Illustrator");
+        skills.addWithSort("Photoshop");
+        skills.addWithSort("AutoCAD");
+        skills.addWithSort("Structural Analysis");
+        skills.addWithSort("Cost Estimation");
+        skills.addWithSort("MS Excel");
+        return skills;
+    }
+
+    public static SortedListInterface<String> initializeEducationLevels() {
+        SortedListInterface<String> educationLevels = new SortedDoublyLinkedList<>();
+        educationLevels.addWithSort("SPM");
+        educationLevels.addWithSort("Diploma");
+        educationLevels.addWithSort("Degree");
+        educationLevels.addWithSort("Master");
+        educationLevels.addWithSort("PhD");
+        return educationLevels;
+    }
+
+    public static SortedListInterface<String> initializeFieldsOfStudy() {
+        SortedListInterface<String> fieldsOfStudy = new SortedDoublyLinkedList<>();
+        fieldsOfStudy.addWithSort("Computer Science");
+        fieldsOfStudy.addWithSort("Business");
+        fieldsOfStudy.addWithSort("Engineering");
+        fieldsOfStudy.addWithSort("Design");
+        fieldsOfStudy.addWithSort("Finance");
+        fieldsOfStudy.addWithSort("Information Technology");
+        fieldsOfStudy.addWithSort("Marketing");
+        fieldsOfStudy.addWithSort("Accounting");
+        fieldsOfStudy.addWithSort("Human Resource Management");
+        fieldsOfStudy.addWithSort("Data Science");
+        fieldsOfStudy.addWithSort("Cybersecurity");
+        fieldsOfStudy.addWithSort("Psychology");
+        fieldsOfStudy.addWithSort("Education");
+        fieldsOfStudy.addWithSort("Statistics");
+        fieldsOfStudy.addWithSort("Graphic Design");
+        fieldsOfStudy.addWithSort("Civil Engineering");
+        fieldsOfStudy.addWithSort("Construction Management");
+        return fieldsOfStudy;
+    }
+
+    public static SortedListInterface<String> initializeLanguages() {
+        SortedListInterface<String> languages = new SortedDoublyLinkedList<>();
+        languages.addWithSort("English");
+        languages.addWithSort("Malay");
+        languages.addWithSort("Chinese");
+        languages.addWithSort("Tamil");
+        return languages;
     }
 
 }

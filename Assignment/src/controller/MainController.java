@@ -38,7 +38,7 @@ public class MainController {
                 }
             } else if (selection == 2) {
                 while (true) {
-                    Company selectedCompany = selectCompany(companies,rejectedApplication);
+                    Company selectedCompany = selectCompany(companies, rejectedApplication);
                     if (selectedCompany == null) {
                         break;
                     }
@@ -99,7 +99,7 @@ public class MainController {
         return MainMenuUI.selectFooter();
     }
 
-    public static Company selectCompany(SortedListInterface<Company> companies,SortedListInterface<Application> rejectedApplication) {
+    public static Company selectCompany(SortedListInterface<Company> companies, SortedListInterface<Application> rejectedApplication) {
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -129,7 +129,10 @@ public class MainController {
     }
 
     public static void companyMenu(Company company, SortedListInterface<Applicant> applicants, SortedListInterface<Application> rejectedApplication) {
+        JobController jobController = new JobController();
+
         while (true) {
+
             utility1.clearScreen();
             MainMenuUI.mainLogo();
             try {
@@ -140,11 +143,27 @@ public class MainController {
                         // manage interview here
                         InterviewController.cmpInterviewMenu(company, applicants);
                         break;
-
                     case 2:
                         MatchingController.mainMatch(company, applicants, rejectedApplication);
                         break;
                     //Company view Applications with matched results
+                    case 3:
+                        jobController.setCompany(company);
+                        //jobController.setCompanies(companies);
+                        jobController.viewJobs();
+                        break;
+                    case 4:
+                        jobController.setCompany(company);
+                        jobController.addJob();
+                        break;
+                    case 5:
+                        jobController.setCompany(company);
+                        jobController.editJob();
+                        break;
+                    case 6:
+                        jobController.setCompany(company);
+                        jobController.deleteJob();
+                        break;
                     case 0:
                         return;
                     default:
@@ -160,6 +179,7 @@ public class MainController {
     }
 
     public static void companyModuleMenu(SortedListInterface<Company> companies, SortedListInterface<Application> rejectedApplication) {
+        JobController jobController = new JobController();
         while (true) {
             utility1.clearScreen();
             MainMenuUI.mainLogo();
@@ -168,23 +188,20 @@ public class MainController {
 
                 switch (choice) {
                     case 1:
-                        // C
-                        
+                        jobController.signUp(companies);
                         break;
-
                     case 2:
-                        
-                    //R
+                        jobController.generateReport(companies);
+                        MainMenuUI.pressEnterToContinue();
+                        break;
                     case 3:
-                        //U
+                        jobController.filterJobs(companies);
+                        MainMenuUI.pressEnterToContinue();
                         break;
                     case 4:
-                        //D:
+                        MatchingController.matchReport(companies, rejectedApplication);
                         break;
                     case 5:
-                        MatchingController.matchReport(companies,rejectedApplication);
-                        break;
-                    case 6:
                         InterviewController.interviewReport(companies);
                     case 0:
                         return;

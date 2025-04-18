@@ -52,30 +52,31 @@ public class MainMenuUI {
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         1. Manage Interview           |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         2. View Matched Applications  |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         3. View Jobs                  |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         4. Add Jobs                   |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         5. Edit Jobs                  |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         6. Delete Jobs                |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         0. Exit                       |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println();
-        System.out.printf("%67sEnter your choice (1-3): ", " ");
+        System.out.printf("%67sEnter your choice (0-6): ", " ");
         return Integer.parseInt(sc.nextLine());
-
     }
 
     public static int manageCompanyMenuUI() {
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         1. C                          |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         2. R                          |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         3. U                          |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         4. D                          |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         5. VIew All Matched Report    |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         6. VIew Interview Report      |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         1. Create Company             |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         2. Generate Job Report        |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         3. Filter Jobs                |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         4. VIew All Matched Report    |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         5. VIew Interview Report      |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         0. Exit                       |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println();
-        System.out.printf("%67sEnter your choice (0-6): ", " ");
+        System.out.printf("%67sEnter your choice (0-5): ", " ");
         return Integer.parseInt(sc.nextLine());
-
     }
 
     public static int applicantMenuUI() {
