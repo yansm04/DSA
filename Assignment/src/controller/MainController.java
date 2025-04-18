@@ -143,8 +143,9 @@ public class MainController {
 
                     case 2:
                         MatchingController.mainMatch(company, applicants, rejectedApplication);
+                        break;
                     //Company view Applications with matched results
-                    case 3:
+                    case 0:
                         return;
                     default:
                         MainMenuUI.printInvalidMenuChoice();
