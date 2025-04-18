@@ -69,10 +69,11 @@ public class MainMenuUI {
         System.out.println(utility1.alignCenter("     |         3. U                          |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         4. D                          |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         5. VIew All Matched Report    |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         6. VIew Interview Report      |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         0. Exit                       |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println();
-        System.out.printf("%67sEnter your choice (0-5): ", " ");
+        System.out.printf("%67sEnter your choice (0-6): ", " ");
         return Integer.parseInt(sc.nextLine());
 
     }
@@ -82,7 +83,8 @@ public class MainMenuUI {
         System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |         1. Application                |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         2. Exit                       |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         2. Interview                  |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         3. Exit                       |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println();
         System.out.printf("%67sEnter your choice (1-3): ", " ");

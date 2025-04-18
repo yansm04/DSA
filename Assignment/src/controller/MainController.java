@@ -184,6 +184,8 @@ public class MainController {
                     case 5:
                         MatchingController.matchReport(companies,rejectedApplication);
                         break;
+                    case 6:
+                        InterviewController.interviewReport(companies);
                     case 0:
                         return;
                     default:
@@ -248,6 +250,9 @@ public class MainController {
                         ApplicationController.mainApplication(applicant, companies, applicants);
                         break;
                     case 2:
+                        InterviewController.appInterviewMenu(applicant);
+                        break;
+                    case 3:
                         return;
                     default:
                         MainMenuUI.printInvalidMenuChoice();

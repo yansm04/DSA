@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import adt.SortedDoublyLinkedList;
@@ -11,6 +7,7 @@ import java.time.LocalDateTime;
 public class ScheduleManager implements Comparable<ScheduleManager> {
 
     private InterviewSchedule currentSchedule; // Manages scheduled interviews and slots  
+    private SortedListInterface<InterviewResult> allResults = new SortedDoublyLinkedList<>(); // Stores results for ranking  
 
     // singleton instance (let other parts of system retrieve the current interview schedule)
     private static ScheduleManager instance = new ScheduleManager();
@@ -21,6 +18,10 @@ public class ScheduleManager implements Comparable<ScheduleManager> {
 
     public InterviewSchedule getCurrentSchedule() {
         return currentSchedule;
+    }
+
+    public SortedListInterface<InterviewResult> getAllResults() {
+        return allResults;
     }
 
     // Replace the current schedule 
@@ -49,4 +50,10 @@ public class ScheduleManager implements Comparable<ScheduleManager> {
         }
     }
 
+    @Override
+    public String toString() {
+        return "ScheduleManager:" 
+                + "\ncurrentSchedule: " + currentSchedule
+                + "\nallResults: " + allResults;
+    }  
 }

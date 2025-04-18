@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import adt.SortedDoublyLinkedList;
@@ -48,20 +44,62 @@ public class InterviewSchedule {
         scheduledInterviews.addAtBack(interview);
     }
 
-    // checks if the new interview's time interval overlaps with any scheduled interviews
-    public boolean hasTimeConflict(LocalDateTime newStart, LocalDateTime newEnd) {
+    public boolean removeInterview(String interviewId) {
+        SortedListInterface<Interview> interviews = getScheduledInterviews();
+        for (int i = 0; i < interviews.getSize(); i++) {
+            Interview interview = interviews.viewDataAtIndex(i);
+            if (interview.getInterviewID().equalsIgnoreCase(interviewId)) {
+                interviews.removeByIndex(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean hasTimeConflict(
+            LocalDateTime newStart,
+            LocalDateTime newEnd,
+            Company company,
+            String applicantId,
+            String ignoreInterviewId
+    ) {
         for (int i = 0; i < scheduledInterviews.getSize(); i++) {
             Interview scheduled = scheduledInterviews.viewDataAtIndex(i);
-            if (scheduled.getInterviewDateTime() != null) {
-                LocalDateTime scheduledStart = scheduled.getInterviewDateTime();
-                LocalDateTime scheduledEnd = scheduledStart.plusHours(1); // Assumption: 1 hour interview
-                // check if the intervals overlap
+            if (ignoreInterviewId != null && scheduled.getInterviewID().equalsIgnoreCase(ignoreInterviewId)) {
+                continue; // cancelled or not set
+            }
+            LocalDateTime scheduledStart = scheduled.getInterviewDateTime();
+            if (scheduledStart == null) {
+                continue;
+            }
+
+            LocalDateTime scheduledEnd = scheduledStart.plusMinutes(5);
+            // Check if this interview is for same company or same applicant
+            boolean sameCompany = scheduled.getApplication().getJob().getCompany().equals(company);
+            boolean sameApplicant = scheduled.getApplication().getApplicant().getUserID().equals(applicantId);
+            if (sameCompany || sameApplicant) {
+                // overlap check
                 if (newStart.isBefore(scheduledEnd) && scheduledStart.isBefore(newEnd)) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public boolean hasTimeConflict(
+            LocalDateTime newStart,
+            LocalDateTime newEnd,
+            Company company,
+            String applicantId
+    ) {
+        return hasTimeConflict(newStart, newEnd, company, applicantId, null);
+    }
+
+    // keep for now
+    public boolean hasTimeConflict(LocalDateTime newStart, LocalDateTime newEnd) {
+        // delegate to the new signature, using a “global” sentinel
+        return hasTimeConflict(newStart, newEnd, null, null);
     }
 
     // validate that the interview time is within the current schedule window
@@ -74,13 +112,24 @@ public class InterviewSchedule {
         // check the interview date is on/after scheduleStartDate & on/before scheduleEndDate
         return (!interviewDate.isBefore(scheduleStartDate)) && (!interviewDate.isAfter(scheduleEndDate));
     }
+
+    // find interview using id
+    public Interview findInterviewById(String interviewId) {
+        for (int i = 0; i < scheduledInterviews.getSize(); i++) {
+            Interview intv = scheduledInterviews.viewDataAtIndex(i);
+            if (intv.getInterviewID().equals(interviewId)) {
+                return intv;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
-        return "InterviewSchedule{"
-                + "scheduledInterviews=" + scheduledInterviews
-                + ", scheduleStartDate=" + scheduleStartDate
-                + ", scheduleEndDate=" + scheduleEndDate
-                + '}';
+        return "InterviewSchedule:"
+                + "\nscheduledInterviews: " + scheduledInterviews
+                + "\nscheduleStartDate: " + scheduleStartDate
+                + "\nscheduleEndDate: " + scheduleEndDate;
     }
 
 }
