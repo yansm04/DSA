@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controller;
 
 import adt.SortedDoublyLinkedList;
@@ -18,7 +15,7 @@ import adt.SortedListInterface;
 
 /**
  *
- * @author Acer
+ * @author Clement Lau Kai Ming
  */
 public class ApplicationController {
 
@@ -163,6 +160,7 @@ public class ApplicationController {
         application.setApplicant(applicant);
 
         //applicant.getApplication().addWithSort(application);
+        //adt function in entity
         applicant.addApplication(application);
         selectedJob.getApplication().addWithSort(application);
     }
