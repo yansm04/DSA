@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
-import adt.SortedDoublyLinkedList;
 import java.time.LocalDateTime;
-import adt.SortedListInterface;
 
 public class Interview implements Comparable<Interview> {
 
     private String interviewID;
     private Application application;
     private LocalDateTime interviewDateTime;
-    private String status;
+    private String status;   
     private String interviewType;
     private InterviewResult result;
 
@@ -74,17 +68,42 @@ public class Interview implements Comparable<Interview> {
         this.status = status;
     }
 
+    public void setResult(InterviewResult result) {
+        this.result = result;
+        this.status = "Completed"; // Auto-update status on result assignment
+    }
+
+    public void schedule(LocalDateTime time, String location, String interviewType) {
+        this.interviewDateTime = time;
+        this.interviewType = interviewType;
+        this.status = "Scheduled";
+    }
+
     public void reschedule(LocalDateTime newTime) {
         this.interviewDateTime = newTime;
     }
 
+    public void cancel() {
+        this.status = "Cancelled";
+    }
+
+    public boolean isCompleted() {
+        return "Completed".equals(this.status);
+    }
+
+    public boolean isCancelled() {
+        return "Cancelled".equals(this.status);
+    }
+
     @Override
     public String toString() {
-        return "Interview ID: " + interviewID;
-//                + ", Time: " + String.format("%02d:%02d %s", hour, minute, period)
-//                + ", Type: " + type
-//                + ", Result: " + result
-//                + ", Feedback: " + feedback;
+        return "Interview:" + 
+                "\ninterviewID: " + interviewID + 
+                "\napplication: " + application + 
+                "\ninterviewDateTime: " + interviewDateTime + 
+                "\nstatus: " + status + 
+                "\ninterviewType: " + interviewType + 
+                "\nresult: " + result;
     }
 
     @Override
