@@ -362,7 +362,7 @@ public class InterviewUI {
     }
 
     public static void interviewResultSummaryBody(String intvId, String appId, String applicant, String job, int score, String status) {
-        System.out.printf("%20s| %-12s | %-12d | %-31s | %-26s | %-11d | %-8s |\n", "", intvId, appId,
+        System.out.printf("%20s| %-12s | %-12s | %-31s | %-26s | %-11d | %-8s |\n", "", intvId, appId,
                 applicant, job, score, status);
     }
 
