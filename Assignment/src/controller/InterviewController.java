@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
+/* Author: Chow Zhen Kit*/
 import adt.SortedDoublyLinkedList;
 import adt.SortedListInterface;
 import boundary.InterviewUI;
@@ -172,11 +169,13 @@ public class InterviewController {
                     }
 
 //                    if (checkForConflict(interviewDateTime, interviewDateTime.plusHours(1),
-//                            company, application.getApplicant().getUserID())) {
+//                            company, application.getApplicant().getUserID(), null)) {
 //                        InterviewUI.printConflictTimeError();
 //                        current = 2;
 //                        break;
 //                    }
+                    // i set the interview duration to 5 mins (for demo)
+                    // to simulate one hr interview, use the above commented code, and comment this code below
                     if (checkForConflict(interviewDateTime, interviewDateTime.plusMinutes(5),
                             company, application.getApplicant().getUserID(), null)) {
                         InterviewUI.printConflictTimeError();
@@ -184,13 +183,6 @@ public class InterviewController {
                         break;
                     }
 
-                    // check for scheduling conflict using global schedule in ScheduleManager.
-//                    if (checkForConflict(interviewDateTime, interviewEndTime)) 
-//                    {
-//                        InterviewUI.printConflictTimeError();
-//                        current = 2;
-//                        break;
-//                    }
                     current = 3;
                     break;
                 case 3:
@@ -262,52 +254,6 @@ public class InterviewController {
                 break;
             }
         }
-
-//        MainMenuUI.pressEnterToContinue();
-//        try {
-//            int appId = InterviewUI.promptApplicationId();
-//
-//            if (appId == 1) {
-//                return;
-//            } else {
-//                Application application = findApplicationByID(company, appId);
-//                if (application == null) {
-//                    InterviewUI.printErrorOption();
-//                    MainMenuUI.pressEnterToContinue();
-//                    return;
-//                } else {
-//                    createInterviewDetails(company);
-//                    System.out.println("done");
-//                    MainMenuUI.pressEnterToContinue();
-//                }
-//            }
-//        } catch (NumberFormatException e) {
-//            InterviewUI.printErrorOption();
-//            MainMenuUI.pressEnterToContinue();
-//        }
-//        while (true) {
-//            utility1.clearScreen();
-//            InterviewUI.interviewLogo();
-        // Display all applications for the company's jobs
-//        displayCompanyApplications(company);
-//            // Get user selection
-//            int choice = InterviewUI.selectApplicationMenu(applicationCount);
-//
-//            if (choice == 0) {
-//                return; // Exit to company menu
-//            } else if (choice >= 1 && choice <= applicationCount) {
-//                // Process the selected application
-//                Application selectedApplication = getApplicationByIndex(company, choice - 1);
-//                if (selectedApplication != null) {
-//                    handleInterview(selectedApplication, company, applicants);
-//                } else {
-//                    InterviewUI.printInvalidSelection();
-//                }
-//            } else {
-//                InterviewUI.printInvalidSelection();
-//            }
-//            InterviewUI.pressEnterToContinue();
-        //}
     }
 
     private static Application findApplicationByID(Company company, int appID) {
@@ -371,42 +317,6 @@ public class InterviewController {
             InterviewUI.displayNoApplication();
             return false;
         }
-
-//        int count = 0;
-//        boolean headingDisplayed = false;
-//
-//        for (int i = 0; i < jobs.getSize(); i++) {
-//            Job job = jobs.viewDataAtIndex(i);
-//            SortedListInterface<Application> applications = job.getApplication();
-//
-//            if (applications != null && applications.getSize() > 0) {
-//                if (!headingDisplayed) {
-//                    InterviewUI.currentApplicationHeading(company.getCompanyName());
-//                    headingDisplayed = true;
-//                }
-//                for (int j = 0; j < applications.getSize(); j++) {
-//                    Application app = applications.viewDataAtIndex(j);
-//                    if (app != null && app.getInterview() == null) {
-//                        count++;
-//                        InterviewUI.displayApplication(
-//                                app.getApplicationID(),
-//                                app.getJob().getTitle(),
-//                                app.getApplicant().getName(),
-//                                app.getStatus());
-//                    }
-//                }
-//            }
-//        }
-//
-//        if (count > 0) {
-//            InterviewUI.currentApplicationFooter();
-//        }
-//
-//        if (count == 0) {
-//            InterviewUI.displayNoApplication();
-//            return false;
-//        }
-//        return true;
     }
 
     public static void viewGlobalSchedule() {
@@ -472,6 +382,8 @@ public class InterviewController {
                         idx = k;
                     }
                 }
+                // i set the interview duration to 5 mins (for demo)
+                // to simulate one hr interview, change the plusMinutes(5) to plusHours(1)
                 InterviewUI.viewInterviewBody(earliest.getInterviewID(), earliest.getApplication().getApplicationID(), earliest.getInterviewType(),
                         earliest.getApplication().getJob().getTitle(), earliest.getApplication().getApplicant().getName(),
                         earliest.getInterviewDateTime(), earliest.getInterviewDateTime().plusMinutes(5),
@@ -508,24 +420,6 @@ public class InterviewController {
                 }
             }
         }
-//        // Completed (results)
-//        SortedListInterface<InterviewResult> results = manager.getAllResults();
-//        for (int i = 0; i < results.getSize(); i++) {
-//            Interview iv = results.viewDataAtIndex(i).getInterview();
-//            if (belongsToUser(iv, user)) {
-//                // only add if not already in schedule
-//                boolean seen = false;
-//                for (int j = 0; j < allToShow.getSize(); j++) {
-//                    if (allToShow.viewDataAtIndex(j).equals(iv)) {
-//                        seen = true;
-//                        break;
-//                    }
-//                }
-//                if (!seen) {
-//                    allToShow.addAtBack(iv);
-//                }
-//            }
-//        }
 
         if (allToShow.getSize() == 0) {
             InterviewUI.displayNoInterview();
@@ -574,6 +468,8 @@ public class InterviewController {
                     }
                 }
 
+                // i set the interview duration to 5 mins (for demo)
+                // to simulate one hr interview, change the plusMinutes(5) to plusHours(1)
                 InterviewUI.viewInterviewBody(earliest.getInterviewID(), earliest.getApplication().getApplicationID(), earliest.getInterviewType(),
                         earliest.getApplication().getJob().getTitle(), earliest.getApplication().getApplicant().getName(),
                         earliest.getInterviewDateTime(), earliest.getInterviewDateTime().plusMinutes(5),
@@ -676,6 +572,12 @@ public class InterviewController {
 //                            continue;
 //                        }
 //                    }
+                    
+                    /*
+                     i set the time for allow updates to 1 min b4 the interview for smooth demo.
+                     to simulate one calender day, uncomment the code above, and the 
+                     LocalDate today = LocalDate.now(); before the loop, then comment the code below
+                     */
                     scheduledTime = interview.getInterviewDateTime();
                     if (scheduledTime != null) {
                         if (!now.isBefore(scheduledTime.minusMinutes(1))) {
@@ -685,16 +587,7 @@ public class InterviewController {
                         }
                     }
                     InterviewUI.displayInterviewDetails(interview);
-
-//                    // Check that update is allowed (at least one calendar day before the interview)
-//                    scheduledTime = interview.getInterviewDateTime();
-//                    LocalDate interviewDate = scheduledTime.toLocalDate();
-//                    if (!today.isBefore(interviewDate)) {
-//                        InterviewUI.printCannotUpdateInterview();
-//                        continue;
-//                    } else {
-//                        InterviewUI.displayInterviewDetails(interview);
-//                    }
+                    
                     current = 1;
                     break;
                 case 1:
@@ -753,6 +646,11 @@ public class InterviewController {
 //                        current = 2;
 //                        break;
 //                    }
+                    
+                     /*
+                     i set the duration for interview to 5 mins for smooth demo.
+                     to simulate one hour, uncomment the code above, then comment the code below
+                     */
                     if (checkForConflict(currentDateTime, currentDateTime.plusMinutes(5),
                             company, interview.getApplication().getApplicant().getUserID(),
                             interview.getInterviewID())) {
@@ -760,12 +658,6 @@ public class InterviewController {
                         current = 2;
                         break;
                     }
-
-//                    if (checkForConflict(currentDateTime, interviewEndTime)) {
-//                        InterviewUI.printConflictTimeError();
-//                        current = 2;
-//                        break;
-//                    }
                     
                     
 //                    // ensure the new interview date is at least one calendar day ahead
@@ -775,6 +667,7 @@ public class InterviewController {
 //                        current = 2;
 //                        break;
 //                    }
+                    
                     // ensure the new interview time is at least 5 minutes in the future
                     // i allow modification until 1 min before the interview (for demo)
                     // to simulate one calendar day, use the above commented code, and comment this code below
@@ -865,7 +758,6 @@ public class InterviewController {
 //                        return;
 //                    }
 //                }
-
                 // i allow modification until 1 min before the interview (for demo)
                 // to simulate one calendar day, use the above commented code, and comment this code below
                 LocalDateTime scheduledTime = interview.getInterviewDateTime();
@@ -877,7 +769,7 @@ public class InterviewController {
                         continue;
                     }
                 }
-                
+
                 InterviewUI.displayInterviewDetails(interview);
                 while (true) {
                     String cfm = InterviewUI.promptConfirmation();
@@ -1004,19 +896,6 @@ public class InterviewController {
                             continue;
                         }
                     }
-
-//                    if (scheduledTime == null) {
-//                        InterviewUI.displayInterviewDetails(interview);
-//                    } else {
-//                        LocalDate today = LocalDate.now();
-//                        LocalDate interviewDate = scheduledTime.toLocalDate();
-//                        if (!today.isBefore(interviewDate)) {
-//                            InterviewUI.printCannotUpdateInterview();
-//                            continue;
-//                        } else {
-//                            InterviewUI.displayInterviewDetails(interview);
-//                        }
-//                    }
                     InterviewUI.displayInterviewDetails(interview);
                     current = 1;
                     break;
@@ -1078,18 +957,6 @@ public class InterviewController {
         }
         MainMenuUI.pressEnterToContinue();
     }
-//
-//    // remove an interview from the schedule
-//    private static void removeInterviewFromSchedule(InterviewSchedule schedule, String interviewId) {
-//        SortedListInterface<Interview> interviews = schedule.getScheduledInterviews();
-//        for (int i = 0; i < interviews.getSize(); i++) {
-//            Interview intv = interviews.viewDataAtIndex(i);
-//            if (intv.getInterviewID().equals(interviewId)) {
-//                schedule.removeInterview(interviewId);
-//                break;
-//            }
-//        }
-//    }
 
     // remove an application from both its job and its applicant
     private static void removeAppFromJobAndApplicant(Application app) {
@@ -1110,28 +977,6 @@ public class InterviewController {
                 break;
             }
         }
-//        for (int i = 0; i < company.getJob().getSize(); i++) {
-//            Job job = company.getJob().viewDataAtIndex(i);
-//            for (int j = 0; j < job.getApplication().getSize(); j++) {
-//                Application app = job.getApplication().viewDataAtIndex(j);
-//                //Remove from job's list
-//                if (app.getInterview() == null) {
-//                    Applicant applicant = app.getApplicant();
-//                    job.getApplication().removeByIndex(j);
-//
-//                    // Remove from applicant's list
-//                    SortedListInterface<Application> applicantApps = applicant.getApplication();
-//                    for (int k = 0; k < applicantApps.getSize(); k++) {
-//                        if (applicantApps.viewDataAtIndex(k).equals(app)) {
-//                            applicantApps.removeByIndex(k);
-//                            break;
-//                        }
-//                    }
-//                    j--;
-//                }
-//            }
-//
-//        }
     }
 
     public static void viewInterviewResults(Company company) {
@@ -1165,14 +1010,14 @@ public class InterviewController {
             LocalDateTime t = iv.getInterviewDateTime();
             if (t != null && t.isBefore(now)) {
                 passed.addAtBack(iv);
-                                InterviewUI.viewInterviewBody(iv.getInterviewID(), iv.getApplication().getApplicationID(), 
-                        iv.getInterviewType(), iv.getApplication().getJob().getTitle(), 
+                InterviewUI.viewInterviewBody(iv.getInterviewID(), iv.getApplication().getApplicationID(),
+                        iv.getInterviewType(), iv.getApplication().getJob().getTitle(),
                         iv.getApplication().getApplicant().getName(), iv.getInterviewDateTime(),
                         iv.getInterviewDateTime().plusMinutes(5),
                         company.getCompanyName());
             }
 
-//            // replace the if condition above to this to omit the business rule (only can rank after interview ends)
+//            // replace the if condition above to this to omit the business rule->only can rank after interview ends)
 //            if (t != null) {
 //                passed.addAtBack(iv);
 //                InterviewUI.viewInterviewBody(iv.getInterviewID(), iv.getApplication().getApplicationID(),
@@ -1717,77 +1562,3 @@ public class InterviewController {
         return false;
     }
 }
-
-//    public static void viewInterview(Company company, SortedListInterface<Applicant> applicants) {
-//        utility1.clearScreen();
-//        InterviewUI.interviewLogo();
-//
-//        ScheduleManager manager = ScheduleManager.getInstance();
-//        InterviewSchedule schedule = manager.getCurrentSchedule();
-//        if (schedule == null || schedule.getScheduledInterviews().getSize() == 0) {
-//            InterviewUI.displayNoInterview();
-//            MainMenuUI.pressEnterToContinue();
-//            return;
-//        }
-//
-//        //sorted list of unique dates 
-//        // LocalDate is a ChronoLocalDate and implements Comparable<ChronoLocalDate>
-//        SortedListInterface<ChronoLocalDate> dates = new SortedDoublyLinkedList<>();
-//        SortedListInterface<Interview> all = schedule.getScheduledInterviews();
-//        for (int i = 0; i < all.getSize(); i++) {
-//            Interview iv = all.viewDataAtIndex(i);
-//            if (!iv.getApplication().getJob().getCompany().equals(company)) {
-//                continue;
-//            }
-//            LocalDate d = iv.getInterviewDateTime().toLocalDate();
-//            boolean found = false;
-//            for (int j = 0; j < dates.getSize(); j++) {
-//                if (dates.viewDataAtIndex(j).equals(d)) {
-//                    found = true;
-//                    break;
-//                }
-//            }
-//            if (!found) {
-//                dates.addWithSort(d);
-//            }
-//        }
-//
-//        // print table for each unique date
-//        for (int di = 0; di < dates.getSize(); di++) {
-//            // cast back to LocalDate for display
-//            LocalDate date = LocalDate.from(dates.viewDataAtIndex(di));
-//
-//            InterviewUI.viewInterviewHeading(date);
-//
-//            // all interviews matching this date
-//            for (int i = 0; i < all.getSize(); i++) {
-//                Interview iv = all.viewDataAtIndex(i);
-//                if (!iv.getApplication().getJob().getCompany().equals(company)) {
-//                    continue;
-//                }
-//                if (!iv.getInterviewDateTime().toLocalDate().equals(date)) {
-//                    continue;
-//                }
-//
-//                InterviewUI.viewInterviewBody(iv.getInterviewID(), iv.getApplication().getApplicationID(), iv.getInterviewType(),
-//                         iv.getApplication().getJob().getTitle(), iv.getApplication().getApplicant().getName(),
-//                        iv.getInterviewDateTime(), iv.getInterviewDateTime().plusHours(1), company.getCompanyName());
-//
-////                String id = iv.getInterviewID();
-////                String type = iv.getInterviewType();
-////                String appl = iv.getApplication().getApplicant().getName();
-////                String job = iv.getApplication().getJob().getTitle();
-////                String start = iv.getInterviewDateTime().format(timeFmt);
-////                String end = iv.getInterviewDateTime().plusHours(1).format(timeFmt);
-////                String comp = company.getCompanyName();
-////
-////                System.out.printf("%-12s | %-10s | %-12s | %-15s | %-15s | %-13s | %-20s%n",
-////                        date, id, type, appl, job, start + "-" + end, comp);
-//            }
-//            InterviewUI.viewInterviewFooter();
-//        }
-//
-//        MainMenuUI.pressEnterToContinue();
-//    }
-//
-
