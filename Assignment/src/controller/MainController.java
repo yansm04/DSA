@@ -227,7 +227,8 @@ public class MainController {
                 if (choice == 0) {
                     return null;
                 } else if (choice == 999) {
-                    // some crud applicant function here
+                    utility1.clearScreen();
+                    ApplicantController.manageApplicants(applicants);
 
                 } else if (choice >= 1 && choice <= applicants.getSize()) {
                     Applicant selectedApplicant = applicants.viewDataAtIndex(choice - 1);
@@ -267,9 +268,17 @@ public class MainController {
                         ApplicationController.mainApplication(applicant, companies, applicants);
                         break;
                     case 2:
-                        InterviewController.appInterviewMenu(applicant);
+                        ApplicantController.viewOwnApplications(applicant);
+                        MainMenuUI.pressEnterToContinue();
                         break;
                     case 3:
+                        ApplicantController.viewOwnProfile(applicant);
+                        MainMenuUI.pressEnterToContinue();
+                        break;
+                    case 4:
+                        ApplicantController.updateOwnProfile(applicant);
+                        break;
+                    case 5:
                         return;
                     default:
                         MainMenuUI.printInvalidMenuChoice();
@@ -282,5 +291,6 @@ public class MainController {
             }
         }
     }
+
 
 }

@@ -83,12 +83,14 @@ public class MainMenuUI {
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     |      Select an option to proceed      |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         1. Application                |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         2. Interview                  |", utility1.totalWidth));
-        System.out.println(utility1.alignCenter("     |         3. Exit                       |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         1. Make My Application        |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         2. View My Applications       |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         3. View My Profile            |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         4. Edit My Profile            |", utility1.totalWidth));
+        System.out.println(utility1.alignCenter("     |         5. Exit                       |", utility1.totalWidth));
         System.out.println(utility1.alignCenter("     +=======================================+", utility1.totalWidth));
         System.out.println();
-        System.out.printf("%67sEnter your choice (1-3): ", " ");
+        System.out.printf("%67sEnter your choice (1-5): ", " ");
         return Integer.parseInt(sc.nextLine());
     }
 

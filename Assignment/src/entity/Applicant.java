@@ -135,7 +135,7 @@ public class Applicant implements Comparable<Applicant> {
                 + "Email: " + email + "\n"
                 + "Age: " + age + "\n"
                 + "Skills: " + skills + "\n"
-                + "Working Experience: " + fos + "\n"
+                + "Field Of Study: " + fos + "\n"
                 + "Education: " + education + "\n";
     }
 
